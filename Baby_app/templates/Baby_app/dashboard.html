@@ -1,0 +1,32 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Vision Pro</title>
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
+    {% endcompress %}
+</head>
+<body>
+    <header>
+        <nav class="nav-links">
+            <a class="nav-title" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
+            <a href="{% url 'Baby_app:index' %}#about">About</a>
+            <a href="{% url 'Baby_app:login' %}">Login</a>
+            <a href="{% url 'Baby_app:register' %}">Register</a>
+        </nav>
+    </header>
+    <main>
+        {% comment %} <section id="hero">
+            <p>Temperature Value: {{temp}}</p>
+            <p>Message: {{msg}}</p>
+        </section> {% endcomment %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Baby Monitoring System</p>
+    </footer>
+</body>
+</html>
