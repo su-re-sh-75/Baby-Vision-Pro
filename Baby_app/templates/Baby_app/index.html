@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen bg-white">
+<body class="min-h-screen text-white bg-baby-red-900">
     <header>
         <nav class="nav-links">
             <a class="nav-title" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
@@ -20,9 +20,9 @@
             <a href="{% url 'Baby_app:register' %}">Register</a>
         </nav>
     </header>
-    <main class="flex">
+    <main class="">
         <section id="home" class="flex flex-col justify-center">
-            <p class="font-mono text-2xl font-bold text-emerald-500 ">Baby Vision Pro</p>
+            <p class="font-mono text-2xl font-bold ">Baby Vision Pro</p>
             <p>
                 This is a baby monitoring system that allows you to monitor your baby from anywhere in the world. 
                 You can monitor your baby's temperature, heart rate, and breathing rate. 
