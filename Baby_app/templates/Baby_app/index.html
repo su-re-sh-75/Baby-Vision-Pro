@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen text-white bg-baby-red-900">
+<body class="min-h-screen text-white bg-baby-red-800">
     <header>
-        <nav class="nav-links">
+        <nav class="flex space-x-10 w-full">
             <a class="nav-title" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
             <a href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
             <a href="{% url 'Baby_app:index' %}#about">About</a>
