@@ -10,28 +10,29 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen text-white bg-baby-red-800">
+<body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-400 to-maroon-flush-300 ">
     <header>
-        <nav class="flex space-x-10 w-full">
-            <a class="nav-title" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
-            <a href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
-            <a href="{% url 'Baby_app:index' %}#about">About</a>
-            <a href="{% url 'Baby_app:login' %}">Login</a>
-            <a href="{% url 'Baby_app:register' %}">Register</a>
+        <nav class="flex space-x-8 m-4 top-0 fixed h-12 w-full">
+            <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8 uppercase font-semibold mx-8" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
+            <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
+            <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="https://wa.me/916383195909?text=Hi" target="_blank">Contact Us</a>
+            <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="{% url 'Baby_app:login' %}">Login</a>
+            <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="{% url 'Baby_app:register' %}">Register</a>
         </nav>
     </header>
-    <main class="">
-        <section id="home" class="flex flex-col justify-center">
-            <p class="font-mono text-2xl font-bold ">Baby Vision Pro</p>
-            <p>
-                This is a baby monitoring system that allows you to monitor your baby from anywhere in the world. 
-                You can monitor your baby's temperature, heart rate, and breathing rate. 
-                You can also monitor your baby's activities and get notifications when your baby is awake or crying.
-            </p>
+    <main class="mt-10  min-h-screen">
+        <section id="home" class="flex justify-center mx-12">
+            <div class="flex flex-col justify-center">
+                <p class="font-mono text-8xl w-1/2 my-8 font-bold bg-gradient-to-r from-maroon-flush-600 to-maroon-flush-400 bg-clip-text text-transparent">Baby Vision Pro</p>
+                <p class="mb-4">
+                    A Powerful Baby Monitoring System that allows you to monitor your baby from anywhere in the world. 
+                    You can monitor your baby's temperature, heart rate, and breathing rate. 
+                    You can also monitor your baby's activities and get notifications when your baby is awake or crying.
+                </p>
+                <a href="{% url 'Baby_app:dashboard' %}" class="ml-28 text-center bg-gradient-to-b from-maroon-flush-500 to-maroon-flush-600 w-40 text-white px-6 py-2 rounded-full hover:from-maroon-flush-600 hover:to-maroon-flush-700 hover:shadow-lg hover:shadow-maroon-flush-600/50">Get Started</a>
+            </div>
+            <img class="w-1/2" src="{% static 'Baby_app/images/half_side_baby_sleeping-removebg.png' %}" alt="baby sleeping">   
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Baby Monitoring System</p>
-    </footer>
 </body>
 </html>

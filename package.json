@@ -4,6 +4,8 @@
     "prettier": "npx prettier --write ./Baby_app/static/Baby_app/src/output.css"
   },
   "devDependencies": {
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "prettier-plugin-tailwindcss": "^0.5.12"
   }
 }

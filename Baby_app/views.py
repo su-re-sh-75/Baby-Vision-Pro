@@ -19,4 +19,4 @@ def dashboard(request):
     if request.method == 'POST':
         temp = request.POST['temp']
         msg = request.POST['msg']
-    return render(request, 'Baby_app/dashboard.html', {'temp': temp, 'msg': msg})
+    return render(request, 'Baby_app/dashboard.html')

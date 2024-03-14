@@ -12,21 +12,20 @@
 </head>
 <body>
     <header>
-        <nav class="nav-links">
-            <a class="nav-title" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
-            <a href="{% url 'Baby_app:index' %}#about">About</a>
-            <a href="{% url 'Baby_app:login' %}">Login</a>
-            <a href="{% url 'Baby_app:register' %}">Register</a>
+        <nav>
+            <a href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
+            <img src="" alt="Profile Pic">
+            <a href="#">Account</a>
         </nav>
     </header>
     <main>
-        {% comment %} <section id="hero">
-            <p>Temperature Value: {{temp}}</p>
-            <p>Message: {{msg}}</p>
-        </section> {% endcomment %}
+        <section class="flex flex-col min-h-screen w-1/4 bg-maroon-flush-500">
+            <a class="" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
+            <a class="" href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
+            <a class="" href="https://wa.me/916383195909?text=Hi" target="_blank">Contact Us</a>
+            <a class="" href="{% url 'Baby_app:login' %}">Login</a>
+            <a class="" href="{% url 'Baby_app:register' %}">Register</a>
+        </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Baby Monitoring System</p>
-    </footer>
 </body>
 </html>
