@@ -11,21 +11,12 @@
     {% endcompress %}
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
-            <img src="" alt="Profile Pic">
-            <a href="#">Account</a>
+    <main class="flex">
+        <nav class="flex flex-col min-h-screen w-1/6 bg-maroon-flush-500 text-white p-4 space-y-4">
+            <a class="font-mono text-xl" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
+            <a class="" href="{% url 'Baby_app:dashboard' %}">Home</a>
+            <a href="#">Settings</a>
         </nav>
-    </header>
-    <main>
-        <section class="flex flex-col min-h-screen w-1/4 bg-maroon-flush-500">
-            <a class="" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
-            <a class="" href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
-            <a class="" href="https://wa.me/916383195909?text=Hi" target="_blank">Contact Us</a>
-            <a class="" href="{% url 'Baby_app:login' %}">Login</a>
-            <a class="" href="{% url 'Baby_app:register' %}">Register</a>
-        </section>
     </main>
 </body>
 </html>
