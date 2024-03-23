@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./Baby_app/static/Baby_app/src/input.css -o ./Baby_app/static/Baby_app/src/output.css --watch",
+    "tailwind": "npx tailwindcss -i ./Baby_app/static/Baby_app/src/input.css -o ./Baby_app/static/Baby_app/src/output.css --watch",
     "prettier": "npx prettier --write ./build/*.html"
   },
   "devDependencies": {
