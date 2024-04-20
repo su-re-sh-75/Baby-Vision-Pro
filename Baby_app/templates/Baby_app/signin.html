@@ -1,0 +1,60 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Vision Pro</title>
+    <link rel="shortcut icon" href="{% static 'Baby_app/images/sleeping-baby.png' %}" type="image/x-icon">
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
+    {% endcompress %}
+</head>
+<body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
+  <div class="mx-auto my-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-lg">
+        <form action="#" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+			<img class="h-40 w-40 mx-auto" src="{% static 'Baby_app/images/sleeping-baby.png' %}" alt="logo"><br>
+          	<p class="text-center text-lg font-medium">Sign in to your account</p>
+          <div>
+            <label for="email" class="sr-only">Email</label>
+
+            <div class="relative">
+              <input
+                type="email"
+                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                placeholder="Enter email"
+              />
+            </div>
+          </div>
+    
+          <div>
+            <label for="password" class="sr-only">Password</label>
+    
+            <div class="relative">
+              <input
+                type="password"
+                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                placeholder="Enter password"
+              />
+    
+            </div>
+          </div>
+
+          <input
+            type="submit"
+            class="block w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 px-5 py-3 text-base font-medium text-white"
+            value="Sign in"
+          >
+    
+          <p class="text-center text-sm text-gray-00">
+            No account?
+            <a class="underline" href="{% url 'Baby_app:register' %}">Sign up</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  
+  </body>
+  </html>

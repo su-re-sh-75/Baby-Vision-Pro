@@ -6,22 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Vision Pro</title>
+    <link rel="shortcut icon" href="{% static 'Baby_app/images/sleeping-baby.png' %}" type="image/x-icon">
     {% compress css %}
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-400 to-maroon-flush-300 ">
+<body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
     <header>
-        <nav class=" space-x-8 m-4 top-0 fixed h-12 w-full flex ">
+        <nav class="space-x-8 m-4 top-0 fixed h-12 w-full flex items-center">
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8 uppercase font-semibold mx-8" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="https://wa.me/916383195909?text=Hi" target="_blank">Contact Us</a>
+            <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'Baby_app:signin' %}">Sign in</a>
+            <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'Baby_app:register' %}">Sign up</a>
         </nav>
     </header>
     <main class="mt-10  min-h-screen">
         <section id="home" class="flex justify-center mx-12">
             <div class="flex flex-col justify-center">
-                <p class="font-mono text-8xl w-1/2 my-8 font-bold bg-gradient-to-r from-maroon-flush-600 to-maroon-flush-400 bg-clip-text text-transparent">Baby Vision Pro</p>
+                <p class="font-mono text-8xl w-1/2 my-8 bg-gradient-to-r from-maroon-flush-600 to-maroon-flush-400 bg-clip-text text-transparent">Baby Vision Pro</p>
                 <p class="mb-4">
                     A Powerful Baby Monitoring System that allows you to monitor your baby from anywhere in the world. 
                     You can monitor your baby's temperature, heart rate, and breathing rate. 

@@ -9,11 +9,12 @@ def about(request):
 def contact(request):
     pass
 
-def login(request):
-    pass
+def signin(request):
+    return render(request, 'Baby_app/signin.html')
 
 def register(request):
-    pass
+    return render(request, 'Baby_app/signup.html')
+    
 
 def dashboard(request):
     if request.method == 'POST':
