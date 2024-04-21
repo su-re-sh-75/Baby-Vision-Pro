@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Vision Pro</title>
+    <link rel="shortcut icon" href="{% static 'Baby_app/images/sleeping-baby.png' %}" type="image/x-icon">
     {% compress css %}
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
@@ -17,6 +18,15 @@
             <a class="" href="{% url 'Baby_app:dashboard' %}">Home</a>
             <a href="#">Settings</a>
         </nav>
+        <div>
+            <ul>
+                {% load tz %}
+                {% for temp in temperature %}
+                <!-- <li class="text-teal-500">{{ temp.0|timezone:"Asia/Kolkata" }}, {{ temp.1 }}</li> -->
+                <li class="text-teal-500">{{ temp.0|localtime }}, {{ temp.1 }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </main>
 </body>
 </html>
