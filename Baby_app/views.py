@@ -20,7 +20,7 @@ def register(request):
 
 def dashboard(request):
     
-    bucket = "sensors"
+    bucket = "suresh"
     org = "BVP"
     token = "FOxPmFk6mKxzuqlWUC5AKwWZzXl1L8LIQ3wFhqL2l3DAMrSxPkAoB11vkfpijHGzhtDCZY4tsd3pvGxOjQFGMA=="
     url="http://localhost:8086"
@@ -34,16 +34,22 @@ def dashboard(request):
     # Query script
     query_api = client.query_api()
 
-    query = 'from(bucket:"sensors")\
+    query = 'from(bucket:"suresh")\
     |> range(start: -30d)\
-    |> filter(fn:(r) => r._measurement == "sensors")\
-    |> filter(fn:(r) => r.location == "Prague")\
-    |> filter(fn:(r) => r._field == "temperature")'
+    |> filter(fn:(r) => r._measurement == "suresh")\
+    |> filter(fn:(r) => r._field == "temperature")\
+    |> filter(fn:(r) => r._field == "humidity")\
+    |> filter(fn:(r) => r._field == "moisture")'
 
     result = query_api.query(org=org, query=query)
-    context = {'temperature':[]}
-    for table in result:
-        for record in table.records:
-            context['temperature'].append((record.get_time(), record.get_value()))
+    context = {'temperature':[],
+               'humidity':[],
+               'moisture':[]
+               }
+    # print(result)
+    # print(result[0].records)
+    # for table in result:
+    #     for record in table.records:
+    #         context['temperature'].append((record.get_time(), record.get_value()))
 
     return render(request, 'Baby_app/dashboard.html', context=context)
