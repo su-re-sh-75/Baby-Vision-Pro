@@ -13,15 +13,6 @@
 </head>
 <body class="min-h-screen flex flex-col">
     <main class="flex">
-        <!-- 
-        <div>
-            <ul>
-                {% load tz %}
-                {% for temp in temperature %}
-                    <li class="text-teal-500">{{ temp.0|localtime }}, {{ temp.1 }}</li>
-                {% endfor %}
-            </ul>
-        </div> -->
         
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -141,7 +132,16 @@
      </div>
   </aside>
   
-  
+   
+        <div class="ml-96">
+            <ul>
+                {% load tz %}
+                {% for temp in temperature %}
+                    <li class="text-teal-500">{{ temp.0 }}, {{ temp.1|localtime }}, {{ temp.2 }}</li>
+                {% endfor %}
+            </ul>
+            <!-- {{temperature}} -->
+        </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>

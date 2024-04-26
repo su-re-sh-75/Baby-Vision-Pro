@@ -20,10 +20,10 @@ def register(request):
 
 def dashboard(request):
     
-    bucket = "suresh"
-    org = "BVP"
-    token = "FOxPmFk6mKxzuqlWUC5AKwWZzXl1L8LIQ3wFhqL2l3DAMrSxPkAoB11vkfpijHGzhtDCZY4tsd3pvGxOjQFGMA=="
-    url="http://localhost:8086"
+    bucket = "PiData"
+    org = "BabyMonitoringApp"
+    token = "X8fiTDmuE54FgUSG3v9mk6_5PUY9NclEM6z92p468k6KZ3gt4-v-xHPoUYPSPDSetZlR5K0uLT3L1-bal35h4A=="
+    url="http://192.168.43.4:8000"
 
     client = influxdb_client.InfluxDBClient(
         url=url,
@@ -34,22 +34,21 @@ def dashboard(request):
     # Query script
     query_api = client.query_api()
 
-    query = 'from(bucket:"suresh")\
-    |> range(start: -30d)\
-    |> filter(fn:(r) => r._measurement == "suresh")\
-    |> filter(fn:(r) => r._field == "temperature")\
-    |> filter(fn:(r) => r._field == "humidity")\
-    |> filter(fn:(r) => r._field == "moisture")'
+    query = 'from(bucket: "PiData")\
+  |> range(start:-1d)\
+  |> filter(fn: (r) => r["_measurement"] == "PI_TEST")\
+  |> filter(fn: (r) => r["PI"] == "0")\
+  |> filter(fn: (r) => r["_field"] == "Humidity_f" or r["_field"] == "Temperature_f" or r["_field"] == "Urinated")'
 
     result = query_api.query(org=org, query=query)
     context = {'temperature':[],
                'humidity':[],
-               'moisture':[]
+               'urinated':[]
                }
-    # print(result)
-    # print(result[0].records)
-    # for table in result:
-    #     for record in table.records:
-    #         context['temperature'].append((record.get_time(), record.get_value()))
+    print(result)
+    print(result[0].records)
+    for table in result:
+         for record in table.records:
+             context['temperature'].append((record.get_field(), record.get_time(), record.get_value() ))
 
     return render(request, 'Baby_app/dashboard.html', context=context)
