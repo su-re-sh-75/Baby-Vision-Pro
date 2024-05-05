@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
+<body class="min-h-screen bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
   <div class="mx-auto my-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-lg">
-        <form action="#" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+        <form action="{% url 'users:login' %}" method="post" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+			{% csrf_token %}
+			{{ form }}
 			<img class="h-40 w-40 mx-auto" src="{% static 'Baby_app/images/sleeping-baby.png' %}" alt="logo"><br>
           	<p class="text-center text-lg font-medium">Sign in to your account</p>
           <div>
@@ -47,10 +49,13 @@
             class="block w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 px-5 py-3 text-base font-medium text-white"
             value="Sign in"
           >
+		{% if request.GET.next %}
+			<input type="hidden" name="next" value="{{ request.GET.next }}">
+		{% endif %}
     
           <p class="text-center text-sm text-gray-00">
             No account?
-            <a class="underline" href="{% url 'Baby_app:register' %}">Sign up</a>
+            <a class="underline" href="{% url 'users:register' %}">Sign up</a>
           </p>
         </form>
       </div>

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
@@ -11,15 +12,9 @@ def about(request):
 def contact(request):
     pass
 
-def signin(request):
-    return render(request, 'Baby_app/signin.html')
-
-def register(request):
-    return render(request, 'Baby_app/signup.html')
-    
-
+@login_required(login_url='/users/login/')
 def dashboard(request):
-    
+    '''
     bucket = "PiData"
     org = "BabyMonitoringApp"
     token = "X8fiTDmuE54FgUSG3v9mk6_5PUY9NclEM6z92p468k6KZ3gt4-v-xHPoUYPSPDSetZlR5K0uLT3L1-bal35h4A=="
@@ -50,5 +45,6 @@ def dashboard(request):
     for table in result:
          for record in table.records:
              context['temperature'].append((record.get_field(), record.get_time(), record.get_value() ))
-
+    '''
+    context ={}
     return render(request, 'Baby_app/dashboard.html', context=context)

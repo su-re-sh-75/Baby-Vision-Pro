@@ -17,8 +17,16 @@
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8 uppercase font-semibold mx-8" href="{% url 'Baby_app:index' %}">Baby Vision Pro</a>
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="{% url 'Baby_app:dashboard' %}">Dashboard</a>
             <a class="hover:text-maroon-flush-600 hover:underline hover:underline-offset-8" href="https://wa.me/916383195909?text=Hi" target="_blank">Contact Us</a>
-            <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'Baby_app:signin' %}">Sign in</a>
-            <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'Baby_app:register' %}">Sign up</a>
+            {% if not user.is_authenticated %}
+                <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'users:login' %}">Sign in</a>
+                <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'users:register' %}">Sign up</a>
+            {% else %}
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" role="menuitem">Sign out</button>
+                </form>
+            {% endif %}
+
         </nav>
     </header>
     <main class="mt-10  min-h-screen">
