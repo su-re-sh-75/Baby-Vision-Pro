@@ -11,29 +11,60 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
-  <div class="mx-auto my-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-lg">
-        <form action="{% url 'users:login' %}" method="post" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+<body class="min-h-screen">
+	<!-- bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300  -->
+	<!-- alerts -->
+	{% if messages %}
+	<div class="mt-2 bg-yellow-100 border border-yellow-200 text-sm text-yellow-800 rounded-lg p-4 dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500" role="alert">
+		<span class="font-bold">Warning</span> alert! You should check in on some of those fields below.
+	</div>
+	<div id="dismiss-alert" class="hs-removing:translate-x-5 hs-removing:opacity-0 transition duration-300 bg-teal-50 border border-teal-200 text-sm text-teal-800 rounded-lg p-4 dark:bg-teal-800/10 dark:border-teal-900 dark:text-teal-500" role="alert">
+		<div class="flex">
+		  <div class="flex-shrink-0">
+			<svg class="flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+			  <path d="m9 12 2 2 4-4"></path>
+			</svg>
+		  </div>
+		  <div class="ms-2">
+			<div class="text-sm font-medium">
+			  File has been successfully uploaded.
+			</div>
+		  </div>
+		  <div class="ps-3 ms-auto">
+			<div class="-mx-1.5 -my-1.5">
+			  <button type="button" class="inline-flex bg-teal-50 rounded-lg p-1.5 text-teal-500 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-50 focus:ring-teal-600 dark:bg-transparent dark:hover:bg-teal-800/50 dark:text-teal-600" data-hs-remove-element="#dismiss-alert">
+				<span class="sr-only">Dismiss</span>
+				<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				  <path d="M18 6 6 18"></path>
+				  <path d="m6 6 12 12"></path>
+				</svg>
+			  </button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  {% endif %}
+
+  
+        <form action="{% url 'users:login' %}" method="post" class="mt-4 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-blue-500">
 			{% csrf_token %}
-			{{ form }}
 			<img class="h-40 w-40 mx-auto" src="{% static 'Baby_app/images/sleeping-baby.png' %}" alt="logo"><br>
           	<p class="text-center text-lg font-medium">Sign in to your account</p>
           <div>
-            <label for="email" class="sr-only">Email</label>
+            <label for="username" class="sr-only">Username</label>
 
             <div class="relative">
               <input
-                type="email"
+                type="text"
                 class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                placeholder="Enter username"
               />
             </div>
           </div>
     
           <div>
             <label for="password" class="sr-only">Password</label>
-    
             <div class="relative">
               <input
                 type="password"
@@ -57,9 +88,10 @@
             No account?
             <a class="underline" href="{% url 'users:register' %}">Sign up</a>
           </p>
+          <p class="text-center text-sm text-gray-00">
+            <a class="underline" href="{% url 'Baby_app:index' %}">Home</a>
+          </p>
         </form>
-      </div>
-    </div>
   
   </body>
   </html>
