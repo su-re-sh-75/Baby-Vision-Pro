@@ -40,5 +40,6 @@ def dashboard(request):
          for record in table.records:
              context['temperature'].append((record.get_field(), record.get_time(), record.get_value() ))
     '''
-    context ={}
+    context = {}
+    context['user'] = request.user
     return render(request, 'Baby_app/dashboard.html', context=context)
