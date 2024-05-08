@@ -11,87 +11,60 @@
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col items-center">
 	<!-- bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300  -->
 	<!-- alerts -->
-	{% if messages %}
-	<div class="mt-2 bg-yellow-100 border border-yellow-200 text-sm text-yellow-800 rounded-lg p-4 dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500" role="alert">
-		<span class="font-bold">Warning</span> alert! You should check in on some of those fields below.
-	</div>
-	<div id="dismiss-alert" class="hs-removing:translate-x-5 hs-removing:opacity-0 transition duration-300 bg-teal-50 border border-teal-200 text-sm text-teal-800 rounded-lg p-4 dark:bg-teal-800/10 dark:border-teal-900 dark:text-teal-500" role="alert">
-		<div class="flex">
-		  <div class="flex-shrink-0">
-			<svg class="flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-			  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-			  <path d="m9 12 2 2 4-4"></path>
-			</svg>
-		  </div>
-		  <div class="ms-2">
-			<div class="text-sm font-medium">
-			  File has been successfully uploaded.
+	<!-- {% if messages %} -->
+		<!-- {% for message in messages %} -->
+			
+			<div id="warning-msg" class="mt-2 w-1/2 flex justify-between items-center bg-yellow-100 border border-yellow-200 text-sm text-yellow-800 rounded-lg p-4 dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500" role="alert">
+				<span class="font-bold">Warning</span> <span class="ml-2">  {{ message }} </span>
+				<button type="button" id="dismiss-alert" class="inline-flex ml-auto border-yellow-200 bg-gray-50 rounded-lg p-1.5 text-yellow-800 hover:bg-white focus:outline-none dark:bg-transparent dark:hover:bg-yellow-800/50 dark:text-yellow-600" data-hs-remove-element="#dismiss-alert">
+					<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M18 6 6 18"></path>
+					<path d="m6 6 12 12"></path>
+					</svg>
+				</button>
 			</div>
-		  </div>
-		  <div class="ps-3 ms-auto">
-			<div class="-mx-1.5 -my-1.5">
-			  <button type="button" class="inline-flex bg-teal-50 rounded-lg p-1.5 text-teal-500 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-50 focus:ring-teal-600 dark:bg-transparent dark:hover:bg-teal-800/50 dark:text-teal-600" data-hs-remove-element="#dismiss-alert">
-				<span class="sr-only">Dismiss</span>
-				<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				  <path d="M18 6 6 18"></path>
-				  <path d="m6 6 12 12"></path>
-				</svg>
-			  </button>
+			
+		<!-- {% endfor %} -->
+	  <!-- {% endif %} -->
+			
+	<main class="w-full h-screen flex flex-col items-center justify-center px-4">
+		<div class="max-w-sm w-full text-gray-600">
+			<div class="text-center">
+				<img class="h-32 w-32 mx-auto" src="{% static 'Baby_app/images/sleeping-baby.png' %}" alt="logo"><br>
+				<div class="space-y-2">
+					<h3 class="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
+					<p class="">Don't have an account? <a href="{% url 'users:register' %}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
+				</div>
 			</div>
-		  </div>
+			<form action="{% url 'users:login' %}" method="post" class="mt-8 space-y-5">
+				{% csrf_token %}
+				<div>
+					<label class="font-medium"> Username </label>
+					<input type="text" name="username" required class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg" />
+				</div>
+				<div>
+					<label class="font-medium"> Password </label>
+					<input type="password" name="password" required class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg" />
+				</div>
+				{% if request.GET.next %}
+					<input type="hidden" name="next" value="{{ request.GET.next }}">
+				{% endif %}
+				<input type="submit" value="Sign in" class="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150" />
+			</form>
+			<div class="mt-2 text-center">
+				Go to
+				<a href="{% url 'Baby_app:index' %}" class="underline hover:text-indigo-600">home</a>
+			</div>
 		</div>
-	  </div>
-	  {% endif %}
-
-  
-        <form action="{% url 'users:login' %}" method="post" class="mt-4 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-blue-500">
-			{% csrf_token %}
-			<img class="h-40 w-40 mx-auto" src="{% static 'Baby_app/images/sleeping-baby.png' %}" alt="logo"><br>
-          	<p class="text-center text-lg font-medium">Sign in to your account</p>
-          <div>
-            <label for="username" class="sr-only">Username</label>
-
-            <div class="relative">
-              <input
-                type="text"
-                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter username"
-              />
-            </div>
-          </div>
-    
-          <div>
-            <label for="password" class="sr-only">Password</label>
-            <div class="relative">
-              <input
-                type="password"
-                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
-              />
-    
-            </div>
-          </div>
-
-          <input
-            type="submit"
-            class="block w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 px-5 py-3 text-base font-medium text-white"
-            value="Sign in"
-          >
-		{% if request.GET.next %}
-			<input type="hidden" name="next" value="{{ request.GET.next }}">
-		{% endif %}
-    
-          <p class="text-center text-sm text-gray-00">
-            No account?
-            <a class="underline" href="{% url 'users:register' %}">Sign up</a>
-          </p>
-          <p class="text-center text-sm text-gray-00">
-            <a class="underline" href="{% url 'Baby_app:index' %}">Home</a>
-          </p>
-        </form>
-  
-  </body>
-  </html>
+	</main>
+	<script>
+		alert_btn = document.getElementById('dismiss-alert');
+		alert_btn.addEventListener('click', ()=>{
+			document.getElementById('warning-msg').style.display = 'none';
+		});
+	</script>
+</body>
+</html>

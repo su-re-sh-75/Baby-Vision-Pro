@@ -6,12 +6,6 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 def index(request):
     return render(request, 'Baby_app/index.html')
 
-def about(request):
-    pass
-
-def contact(request):
-    pass
-
 @login_required(login_url='/users/login/')
 def dashboard(request):
     '''
