@@ -21,10 +21,7 @@
                 <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'users:login' %}">Sign in</a>
                 <a class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" href="{% url 'users:register' %}">Sign up</a>
             {% else %}
-                <form action="{% url 'users:logout' %}" method="post">
-                    {% csrf_token %}
-                    <button class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md" role="menuitem">Sign out</button>
-                </form>
+                    <a href="{% url 'users:logout' %}" class="bg-maroon-flush-600 text-white rounded-full px-4 py-1 hover:bg-maroon-flush-700 hover:shadow-md">Sign out</a>
             {% endif %}
 
         </nav>
