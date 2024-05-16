@@ -52,8 +52,8 @@ def notify(request):
             data = json.loads(request.body)
             msg = data.get('msg')
             print(msg)
-            return HttpResponse("GET Success")
+            return HttpResponse(msg)
         except json.JSONDecodeError as e:
             print("Error decoding JSON:", e)
-            return HttpResponse("Invalid JSON data", status=400)
+            return HttpResponse(f"Invalid JSON data: {e}", status=400)
     return HttpResponse("Failed")
