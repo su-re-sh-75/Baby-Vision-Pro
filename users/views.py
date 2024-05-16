@@ -31,7 +31,7 @@ def login_view(request):
                 return redirect('Baby_app:index')
         else:
             # Return an 'invalid login' error message.
-            messages.success(request, ('Error while trying to log in'))
+            messages.error(request, ('Error while trying to log in'))
             return redirect('users:login')
     else:
         return render(request, 'users/login.html')
