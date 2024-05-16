@@ -8,12 +8,10 @@ djangorestframework==3.15.1
 gunicorn==21.2.0
 influxdb-client==1.41.0
 packaging==24.0
-paho-mqtt==2.1.0
 python-dateutil==2.9.0.post0
 rcssmin==1.1.1
 reactivex==4.0.4
 rjsmin==1.2.1
-setuptools==69.5.1
 six==1.16.0
 sqlparse==0.4.4
 typing_extensions==4.10.0

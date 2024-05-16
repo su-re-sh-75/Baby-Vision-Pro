@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'Baby_app.apps.BabyAppConfig',
     'users.apps.UsersConfig',
-    'mqtt_notify.apps.MqttNotifyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,14 +91,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'mqtt': {
-        'NAME': 'notifications',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST':'localhost',
-        'PORT':'3306',
     }
 }
 
@@ -147,9 +138,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-MQTT_SERVER = 'broker.emqx.io'
-MQTT_PORT = 1883
-MQTT_KEEPALIVE = 60
-MQTT_USER = ''
-MQTT_PASSWORD = ''
