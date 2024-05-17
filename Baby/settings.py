@@ -148,8 +148,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MQTT_SERVER = 'broker.emqx.io'
-MQTT_PORT = 1883
+MQTT_SERVER = 'p1d3f813.ala.asia-southeast1.emqxsl.com'
+MQTT_PORT = 8883
 MQTT_KEEPALIVE = 60
-MQTT_USER = ''
-MQTT_PASSWORD = ''
+MQTT_USER = 'suresh'
+MQTT_PASSWORD = 'suresh'

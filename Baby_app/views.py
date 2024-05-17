@@ -43,3 +43,4 @@ def dashboard(request):
     context = {}
     context['user'] = request.user
     return render(request, 'Baby_app/dashboard.html', context=context)
+
