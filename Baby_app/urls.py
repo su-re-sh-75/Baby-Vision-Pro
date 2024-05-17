@@ -5,5 +5,4 @@ app_name = 'Baby_app'
 urlpatterns = [
     path('', views.index, name='index'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('notify/', views.notify, name='notify'),
 ]

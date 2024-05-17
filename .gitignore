@@ -2,6 +2,3 @@ node_modules
 .vscode
 static/
 env
-Baby/__pycache__/
-Baby_app/__pycache__/
-users/__pycache__/

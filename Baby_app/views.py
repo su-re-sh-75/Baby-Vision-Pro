@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
-from django.http import HttpResponse
-import json
 
 def index(request):
     return render(request, 'Baby_app/index.html')
@@ -45,15 +43,3 @@ def dashboard(request):
     context = {}
     context['user'] = request.user
     return render(request, 'Baby_app/dashboard.html', context=context)
-
-def notify(request):
-    if request.method == 'GET':
-        try:
-            data = json.loads(request.body)
-            msg = data.get('msg')
-            print(msg)
-            return HttpResponse(msg)
-        except json.JSONDecodeError as e:
-            print("Error decoding JSON:", e)
-            return HttpResponse(f"Invalid JSON data: {e}", status=400)
-    return HttpResponse("Failed")
