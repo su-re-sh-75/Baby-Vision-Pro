@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 from django.conf import settings
-
+from .models import Notification
 
 def on_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
@@ -13,7 +13,17 @@ def on_connect(mqtt_client, userdata, flags, rc):
 
 
 def on_message(mqtt_client, userdata, msg):
-    print(f'Received message on topic: {msg.topic} with payload: {msg.payload.decode()}')
+    new_notification = Notification()
+    new_notification.notification_text = msg.payload.decode()
+    topic = msg.topic
+    if msg.topic == "BVP/baby" or msg.topic == "BVP/cry":
+        new_notification.priority_level = "High"
+    elif msg.topic == "BVP/urine":
+        new_notification.priority_level = "Medium"
+
+    new_notification.save()
+
+    print(f'Received message on topic: {topic} with payload: {msg.payload.decode()}')
 
 
 client = mqtt.Client()

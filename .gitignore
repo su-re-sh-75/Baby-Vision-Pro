@@ -1,5 +1,5 @@
 node_modules
 .vscode
-static/
+/static/
 env
 **/__pycache__/
