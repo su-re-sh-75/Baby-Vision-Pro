@@ -1,3 +1,4 @@
+from datetime import timedelta, datetime
 import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -16,16 +17,43 @@ def index(request):
     return render(request, 'Baby_app/index.html')
 
 def view_notifications(request):
-    notifications_list = Notification.objects.all().order_by('-received_at')  # fetch all notifications, newest first
-    paginator = Paginator(notifications_list, 10)  # Show 10 notifications per page
+    received_days = request.GET.get('received', '30')
+    high_filter = request.GET.get('high', "")
+    medium_filter = request.GET.get('medium', "")
+    low_filter = request.GET.get('low', "")
+
+    notifications_list = Notification.objects.all()
+
+    days_ago = datetime.now() - timedelta(days=int(received_days))
+    notifications_list = notifications_list.filter(received_at__gte=days_ago)
+
+    if high_filter != "":
+        notifications_list = notifications_list.filter(priority_level='High')
+    if medium_filter != "":
+        notifications_list = notifications_list.filter(priority_level='Medium')
+    if low_filter != "":
+        notifications_list = notifications_list.filter(priority_level='Low')
+
+    # Order the notifications
+    notifications_list = notifications_list.order_by('-received_at')
+
+    paginator = Paginator(notifications_list, 10)  
 
     page_number = request.GET.get('page')
     notifications = paginator.get_page(page_number)
 
-    return render(request, 'Baby_app/notification.html', {'notifications': notifications})
+    context = {
+        'notifications': notifications,
+        'received_days': received_days,
+        'high_filter': high_filter,
+        'medium_filter': medium_filter,
+        'low_filter': low_filter,
+    }
+
+    return render(request, 'Baby_app/notification.html', context)
 
 @login_required(login_url='/users/login/')
-def dashboard(request, title=None, msg=None, img_url=None):
+def dashboard(request):
     '''
     bucket = "PiData"
     org = "BabyMonitoringApp"
@@ -60,10 +88,6 @@ def dashboard(request, title=None, msg=None, img_url=None):
     '''
     context = {}
     context['user'] = request.user
-    if title or msg or img_url:
-        context['notification'] = {'title':title, 
-                                'msg':msg,
-                                'img_url':img_url} 
     return render(request, 'Baby_app/dashboard.html', context=context)
 
 @csrf_exempt
