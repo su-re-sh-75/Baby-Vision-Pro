@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 from django.conf import settings
 from .models import Notification
+from . import views
 
 def on_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
@@ -11,20 +12,27 @@ def on_connect(mqtt_client, userdata, flags, rc):
     else:
         print('Bad connection. Code:', rc)
 
-
 def on_message(mqtt_client, userdata, msg):
     new_notification = Notification()
     new_notification.notification_text = msg.payload.decode()
     topic = msg.topic
-    if msg.topic == "BVP/baby" or msg.topic == "BVP/cry":
+    icon_url = "./static/Baby_app/images/sleeping-baby.png"
+    if msg.topic == "BVP/baby":
         new_notification.priority_level = "High"
+        image_url = "./static/Baby_app/images/anya-hiding-crop.jpg"
+    elif msg.topic == "BVP/cry":
+        new_notification.priority_level = "High"
+        image_url = "./static/Baby_app/images/anya-crying-2.jpg"
     elif msg.topic == "BVP/urine":
         new_notification.priority_level = "Medium"
+        image_url = "./static/Baby_app/images/baby-urinated.jpg"
 
     new_notification.save()
 
+    local_fcm_token = 'fHTxbAlZK7sUCi8LQSsxua:APA91bFc-ZZZDQOa2DXvMwR_-aUsbYINDCrfpXJTaG1R5rrnMBwdn6JDRGdUzRIvx-Uhta4rxDjnNEc7qXcXWZN17sw7YZCyNZepP9ZC6EcI14ZFZkZTeIMXo1NsVjYIbjrJapRjOLRy'
+    # views.send_notification([views.fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
+    views.send_notification([local_fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
     print(f'Received message on topic: {topic} with payload: {msg.payload.decode()}')
-
 
 client = mqtt.Client()
 client.tls_set(ca_certs='./emqxsl-ca.crt')

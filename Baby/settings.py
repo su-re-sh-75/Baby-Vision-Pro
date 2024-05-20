@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Baby_app.apps.BabyAppConfig',
     'users.apps.UsersConfig',
-    'mqtt_notify.apps.MqttNotifyConfig',
+    # 'mqtt_notify.apps.MqttNotifyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'django_browser_reload',
+    'push_notifications',
 ]
 
 MIDDLEWARE = [

@@ -32,17 +32,36 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
-    while msg_count != 5:
+    while msg_count != 3:
         for i in topic:
             time.sleep(1)
-            msg = f"messages: {msg_count}"
-            result = client.publish(i, msg)
-            # result: [0, 1]
-            status = result[0]
-            if status == 0:
-                print(f"Send `{msg}` to topic `{i}`")
-            else:
-                print(f"Failed to send message to topic {topic}")
+            if i == "BVP/baby":
+                msg = "Baby not found!"
+                result = client.publish(i, msg)
+                # result: [0, 1]
+                status = result[0]
+                if status == 0:
+                    print(f"Send `{msg}` to topic `{i}`")
+                else:
+                    print(f"Failed to send message to topic {topic}")
+            elif i == "BVP/cry":
+                msg = "Mama, I'm crying!"
+                result = client.publish(i, msg)
+                # result: [0, 1]
+                status = result[0]
+                if status == 0:
+                    print(f"Send `{msg}` to topic `{i}`")
+                else:
+                    print(f"Failed to send message to topic {topic}")
+            elif i == "BVP/urine":
+                msg = "Baby urinated! change the diaper."
+                result = client.publish(i, msg)
+                # result: [0, 1]
+                status = result[0]
+                if status == 0:
+                    print(f"Send `{msg}` to topic `{i}`")
+                else:
+                    print(f"Failed to send message to topic {topic}")
         msg_count += 1
 
 

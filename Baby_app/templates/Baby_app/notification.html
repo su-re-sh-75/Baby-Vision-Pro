@@ -88,7 +88,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'Baby_app:view_notifications' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+					<a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 						<svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 							<path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
 						</svg>
@@ -115,26 +115,67 @@
 				</ul>
 			</div>
 		</aside>
-		<div>
-			Hello Suresh
-			Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda esse quibusdam repudiandae commodi saepe et odit doloremque inventore quia deleniti omnis, delectus laudantium itaque nesciunt eveniet nulla, pariatur aliquam ex.
-			Necessitatibus, dolore sit! Mollitia facere alias possimus iure asperiores, ullam velit error, necessitatibus id voluptatem veritatis itaque odio consectetur excepturi repellat nisi molestiae. Soluta rerum quo nobis magni, dolorum non!
-			Perferendis cupiditate amet voluptas ipsa quaerat enim nam ab eius inventore impedit saepe corrupti labore magni sed illo, ea totam quasi maxime praesentium voluptates exercitationem recusandae natus! Nisi, porro veritatis?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis qui aliquam, nulla aperiam error enim libero facere ipsum nesciunt in totam, fugiat quia eveniet aspernatur. Nobis ea repudiandae nemo nostrum?
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi hic in, rerum rem doloribus veniam nulla architecto. Similique voluptatem optio unde obcaecati cumque laudantium, odit, saepe, vero magnam vitae et!
-			Ipsum impedit, voluptatum eos quis perferendis, culpa, quas autem voluptatibus totam sunt explicabo mollitia fugit nam. Sit quis illo itaque, consequuntur deserunt aliquam nihil commodi adipisci, illum, necessitatibus fugiat sequi!
-			Deserunt dolor molestias, cum adipisci repudiandae asperiores vitae reiciendis neque perferendis quo tempora tenetur ad, alias a ab numquam id eos cumque provident rerum ut animi architecto, nesciunt illo! Nemo!
-			Aliquid hic eos adipisci corrupti dolore, possimus maiores ad neque natus cum eius perspiciatis eum in ea eveniet quis! Odio vel placeat repellendus illo saepe odit facilis delectus modi praesentium?
-		</div>
-        <div class="ml-96">
-            <ul>
-                {% load tz %}
-                {% for temp in temperature %}
-                    <li class="text-teal-500">{{ temp.0 }}, {{ temp.1|localtime }}, {{ temp.2 }}</li>
-                {% endfor %}
-            </ul>
-            <!-- {{temperature}} -->
-        </div>
+		<!-- notifications -->
+
+  
+  
+        <section class="w-full">            
+            {% for notification in notifications %}
+            <div class="notification">
+                <h2>{{ notification.notification_text }}</h2>
+                <p>Received at: {{ notification.received_at }}</p>
+                <p>Priority: {{ notification.priority_level }}</p>
+            </div>
+            {% empty %}
+                <p>No notifications.</p>
+            {% endfor %}
+            <nav class="flex justify-center">
+                <ul class="flex items-center -space-x-px h-10 text-base">
+                    {% if notifications.has_previous %}
+                    <li>
+                        <a href="?page=1" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
+                            <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.85355 3.85355C7.04882 3.65829 7.04882 3.34171 6.85355 3.14645C6.65829 2.95118 6.34171 2.95118 6.14645 3.14645L2.14645 7.14645C1.95118 7.34171 1.95118 7.65829 2.14645 7.85355L6.14645 11.8536C6.34171 12.0488 6.65829 12.0488 6.85355 11.8536C7.04882 11.6583 7.04882 11.3417 6.85355 11.1464L3.20711 7.5L6.85355 3.85355ZM12.8536 3.85355C13.0488 3.65829 13.0488 3.34171 12.8536 3.14645C12.6583 2.95118 12.3417 2.95118 12.1464 3.14645L8.14645 7.14645C7.95118 7.34171 7.95118 7.65829 8.14645 7.85355L12.1464 11.8536C12.3417 12.0488 12.6583 12.0488 12.8536 11.8536C13.0488 11.6583 13.0488 11.3417 12.8536 11.1464L9.20711 7.5L12.8536 3.85355Z"></path> </g></svg>
+                            <span class="ml-1">First</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page={{ notifications.previous_page_number }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                            </svg>
+                            <span class="ml-1">Previous</span>
+                        </a>
+                      </li>
+                    {% endif %}
+                    <li>
+                        <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ notifications.number }}</span>
+                    </li>
+                    <li>
+                        <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">of</span>
+                    </li>
+                    <li>
+                        <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ notifications.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if notifications.has_next %}
+                        <li>
+                            <a href="?page={{ notifications.next_page_number }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="mr-1">Next</span>
+                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page={{ notifications.paginator.num_pages }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
+                                <span class="mr-1">Last</span>
+                                <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2.14645 11.1464C1.95118 11.3417 1.95118 11.6583 2.14645 11.8536C2.34171 12.0488 2.65829 12.0488 2.85355 11.8536L6.85355 7.85355C7.04882 7.65829 7.04882 7.34171 6.85355 7.14645L2.85355 3.14645C2.65829 2.95118 2.34171 2.95118 2.14645 3.14645C1.95118 3.34171 1.95118 3.65829 2.14645 3.85355L5.79289 7.5L2.14645 11.1464ZM8.14645 11.1464C7.95118 11.3417 7.95118 11.6583 8.14645 11.8536C8.34171 12.0488 8.65829 12.0488 8.85355 11.8536L12.8536 7.85355C13.0488 7.65829 13.0488 7.34171 12.8536 7.14645L8.85355 3.14645C8.65829 2.95118 8.34171 2.95118 8.14645 3.14645C7.95118 3.34171 7.95118 3.65829 8.14645 3.85355L11.7929 7.5L8.14645 11.1464Z"></path> </g></svg>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>

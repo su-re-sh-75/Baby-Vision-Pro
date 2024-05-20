@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "baby-vision-pro",
+  "private_key_id": "39e136d81c297d04755308ce39d6b8091731fee9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCtb6hZ8UvYndHD\nTCnndw5HGLaBZxLhyJFK9OC7p9wcNslM2Und5Gle9XMF3aVK991JuMZ3GfaEro3W\n3HpTwlUME7LIf1pvbfG80NL6CWnQOF1kGEnfAw/J8ZDoBS+k1mBJOQsdLh+kF1dy\nLzstnP6fcbIL2EQGaehuIkdG/NwsBPLQdsPX6o6pHuwDTx5s/do8PdDbYyvgOEzZ\nEMN0PlxJvOeMDJIlZW8IdKp2IEvRATAkNXX3sZ8HJRoLlyVS756uknPqol+W0qgN\nXpWgN4pwTYE34JNLWP/jXTOkgDf310ckRnSd+OigHMIt6nQhNG9/At/JnUnfJhm9\n7qQreBLFAgMBAAECggEAGM78f2UfKsykaTG3WscycSQNUyRJ1KcqdVTi4qTnvNdv\nYwE/6jAWjIFCo0epsbgT3MxEA1xg4WjQnDfsfZeyL6iPrdNdvcu1xQL/8sku7Bxr\n63n38yEOfJ4D0tSPFJ6fpkm1F8b1urSmCwzLg8JNv8P1KnGUhXBX0Y0wsexQmDEe\nuz/so9YFyhdT42d10feclj3pzMQNGr3rTW8fVxVmPwJlGlFBX1QEgFV2WFoAqE9y\nDE1HDKKI7vkTxgVgoSqkbw0P9hETZAsI8YHy0tTLWNhoPXBUTSlqtmIr8Tw7wG3n\nz2Ar/YZyIvd2iwdodYf3gFNikMOozP0sdS/lh89wzwKBgQDVN6EakL11Fw2Ic9gK\nAfkgWZBXFFxYohXTVOFRGIA4EDzQb1IwsR4SG5V/21aRuExiMUx7Nt9fPuOjUHgg\nwVF5DtmFFUkC+zyWjqSAHUPKreQcIeM+STLidUYtydnOFm2ueA0gKHWn4XjtV5V6\nzdKhpBNjoDd8R+vb54ArOWzeKwKBgQDQPJVhhNHfqRzfXn3/Caq3kXoYJWFa6kVR\nkY4B21/WaaCHfjVRESq8Lhki/aJHtThPhOdwzwFsDGqfwjsWI/DfyrEb3Gg+7yos\nn95Fm24/mTzd3DsjL1n9fCgi251cfr5zKEkFp/PagWYWY/6AyhCvOJ59+T9Pfc3p\nZBwsaKhKzwKBgGUg2XysIfAjWvvZViKJBQxe7qMeuR4g4pE1tRitskLlELMb2bPW\njhiwlJvsAIdlDnWURF48jH20amvPguqmRmpQrML+cX7Egtw2E7fgKYM8LvFY8Vtd\nhJD8ZqjZEEE7ShJyRmd2STezLZQE8pUogjrAg6HBIBAGXMwUZSobNpO5AoGAOUDf\nBZACME+L+7I8TDn5MT2TZz4n1VpiMrolZEdPw2EJXReLSz3AFTtLd/5qdvLRh7OP\n+sk/p9iGHGTH4B+Do9RT+8gO9XbGjrxp3ZONrXjRbmKV8+eaA4L2ehcN3heO/5SM\n9zwlZOd9DRzzJa/pBHQ5x4MXMCDz037N7DveQasCgYB4Zr22PQrB95nXUeDxzJYM\nSftgC1ODQJwQQYeGofUlUeAxu4LD5RNxSfRdzad1BQMINrHLVOFG2HYEscvlbBWw\n9LkiHqWrDsO8refqMaTFLH3Q+bRwN0MCpma5gnC7kHquTuRJc0+81S2He6QAFlse\nDmKQmfX0JvMPTcknOJDvaw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-bsohq@baby-vision-pro.iam.gserviceaccount.com",
+  "client_id": "116446354144361929536",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-bsohq%40baby-vision-pro.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
