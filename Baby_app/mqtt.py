@@ -4,10 +4,7 @@ from .models import Notification
 from . import views
 from Baby import settings as baby_settings
 from twilio.rest import Client
-
-
-
-
+from django.utils import timezone
 
 
 def on_connect(mqtt_client, userdata, flags, rc):
@@ -26,6 +23,7 @@ def on_message(mqtt_client, userdata, msg):
 
     new_notification = Notification()
     new_notification.notification_text = msg.payload.decode()
+    new_notification.received_at = timezone.now()
     topic = msg.topic
     icon_url = "./static/Baby_app/images/sleeping-baby.png"
     if msg.topic == "BVP/baby":
@@ -45,9 +43,9 @@ def on_message(mqtt_client, userdata, msg):
     views.send_notification([local_fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
     print(f'Received message on topic: {topic} with payload: {msg.payload.decode()}')
     # message = client.messages.create(
-    #     from_='+16504890117',
-    #     body= msg.payload.decode(),
-    #     to='+919342222369'
+    #      from_='+16504890117',
+    #      body= msg.payload.decode(),
+    #      to='+919342222369'
     # )
     # print(message.sid)
 

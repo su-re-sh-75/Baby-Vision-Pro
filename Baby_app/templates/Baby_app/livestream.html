@@ -1,0 +1,159 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head class="scroll-smooth">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Vision Pro</title>
+    <link rel="shortcut icon" href="{% static 'Baby_app/images/sleeping-baby.png' %}" type="image/x-icon">
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
+    {% endcompress %}
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+	<script src="{% static 'Baby_app/js/initialize_firebase.js' %}"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+	<nav class=" w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+			<div class="flex items-center justify-between">
+				<div class="flex items-center justify-start rtl:justify-end">
+				<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+					<span class="sr-only">Open sidebar</span>
+					<svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+					</svg>
+				</button>
+				<a href="{% url 'Baby_app:index' %}" class="flex ms-2 md:me-24">
+					<img src="{% static 'Baby_app/images/sleeping-baby.png' %}" class="h-8 me-3" alt="BVP logo" />
+					<span class="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent font-sans self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Baby Vision Pro</span>
+				</a>
+				</div>
+				<div class="flex items-center">
+					<div class="flex items-center ms-3">
+						<div>
+							<button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+								<span class="sr-only">Open user menu</span>
+								<img class="w-8 h-8 rounded-full" src="{% static 'Baby_app/icons/user-profile.svg' %}" alt="user photo">
+							</button>
+						</div>
+						<div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+							<div class="px-4 py-3" role="none">
+								<p class="text-sm text-gray-900 dark:text-white" role="none">
+									{{ user.username }}
+								</p>
+								<p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+									{{ user.email }}
+								</p>
+							</div>
+							<ul class="py-1" role="none">
+								<li>
+									<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+								</li>
+								<li>
+									<a href="{% url 'users:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+    <main class="flex">
+		<aside id="logo-sidebar" class="w-64 min-h-screen pt-2 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+			<div class="h-full w-60 pl-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800 ">
+				<ul class="space-y-2 font-medium">
+					<li>
+						<a href="{% url 'Baby_app:dashboard' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+							<svg class="w-5 h-5 text-purple-700 transition duration-75 dark:text-purple-700 group-hover:text-purple-700 dark:group-hover:text-purple-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+								<path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+								<path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+							</svg>
+							<span class="ms-3">Dashboard</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'Baby_app:view_notifications' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:bg-gray-700 group">
+							<svg class="flex-shrink-0 w-5 h-5 transition duration-75 dark:text-pink-600 text-pink-600 dark:group-hover:text-pink-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+								<path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
+							</svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Notifications</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'Baby_app:livestream' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 transition duration-75 fill-sky-500 dark:fill-sky-500 dark:group-hover:fill-sky-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                  <path d="M21.4898 4.76923C21.3878 3.4359 20.2653 2.41026 18.9388 2.30769C16.898 2.10256 14.0408 2 11.7959 2C9.55102 2 6.79592 2.10256 4.7551 2.30769C4.04082 2.30769 3.53061 2.61538 3.02041 3.12821C2.61224 3.53846 2.30612 4.15385 2.30612 4.76923C2.20408 6.41026 2 8.66667 2 10.4103C2 12.1538 2.20408 14.4103 2.30612 16.0513C2.40816 17.3846 3.53061 18.4103 4.85714 18.5128C6.89796 18.718 9.7551 18.8205 12 18.8205C14.2449 18.8205 17.102 18.6154 19.1429 18.5128C20.4694 18.4103 21.4898 17.3846 21.6939 16.0513C21.898 14.4103 22 12.1538 22 10.4103C22 8.66667 21.6939 6.41026 21.4898 4.76923ZM16.4898 8.35897L13.4286 11.4359C13.1224 11.7436 12.6122 11.7436 12.3061 11.4359L10.8776 10L8.32653 12.5641C8.12245 12.6667 8.02041 12.7692 7.81633 12.7692C7.61224 12.7692 7.40816 12.6667 7.30612 12.5641C7 12.2564 7 11.7436 7.30612 11.4359L10.3673 8.35897C10.6735 8.05128 11.1837 8.05128 11.4898 8.35897L12.9184 9.79487L15.4694 7.23077C15.7755 6.92308 16.2857 6.92308 16.5918 7.23077C16.7959 7.64103 16.7959 8.05128 16.4898 8.35897Z"></path>
+                                  <path d="M15.9796 22H7.81633C7.40816 22 7 21.6923 7 21.1795C7 20.6667 7.30612 20.359 7.81633 20.359H15.9796C16.3878 20.359 16.7959 20.6667 16.7959 21.1795C16.7959 21.6923 16.3878 22 15.9796 22Z"></path>
+                                </g>
+                              </svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Live Stream</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+							<svg class="flex-shrink-0 w-5 h-5 text-yellow-300 transition duration-75 dark:text-yellow-300 group-hover:text-yellow-300 dark:group-hover:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+								<path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+							</svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+						</a>
+					</li>
+					<li class="border-b border-b-gray-200 pb-2">
+						<a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+							<svg class="flex-shrink-0 w-5 h-5 fill-emerald-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2788 2.15224C13.9085 2 13.439 2 12.5 2C11.561 2 11.0915 2 10.7212 2.15224C10.2274 2.35523 9.83509 2.74458 9.63056 3.23463C9.53719 3.45834 9.50065 3.7185 9.48635 4.09799C9.46534 4.65568 9.17716 5.17189 8.69017 5.45093C8.20318 5.72996 7.60864 5.71954 7.11149 5.45876C6.77318 5.2813 6.52789 5.18262 6.28599 5.15102C5.75609 5.08178 5.22018 5.22429 4.79616 5.5472C4.47814 5.78938 4.24339 6.1929 3.7739 6.99993C3.30441 7.80697 3.06967 8.21048 3.01735 8.60491C2.94758 9.1308 3.09118 9.66266 3.41655 10.0835C3.56506 10.2756 3.77377 10.437 4.0977 10.639C4.57391 10.936 4.88032 11.4419 4.88029 12C4.88026 12.5581 4.57386 13.0639 4.0977 13.3608C3.77372 13.5629 3.56497 13.7244 3.41645 13.9165C3.09108 14.3373 2.94749 14.8691 3.01725 15.395C3.06957 15.7894 3.30432 16.193 3.7738 17C4.24329 17.807 4.47804 18.2106 4.79606 18.4527C5.22008 18.7756 5.75599 18.9181 6.28589 18.8489C6.52778 18.8173 6.77305 18.7186 7.11133 18.5412C7.60852 18.2804 8.2031 18.27 8.69012 18.549C9.17714 18.8281 9.46533 19.3443 9.48635 19.9021C9.50065 20.2815 9.53719 20.5417 9.63056 20.7654C9.83509 21.2554 10.2274 21.6448 10.7212 21.8478C11.0915 22 11.561 22 12.5 22C13.439 22 13.9085 22 14.2788 21.8478C14.7726 21.6448 15.1649 21.2554 15.3694 20.7654C15.4628 20.5417 15.4994 20.2815 15.5137 19.902C15.5347 19.3443 15.8228 18.8281 16.3098 18.549C16.7968 18.2699 17.3914 18.2804 17.8886 18.5412C18.2269 18.7186 18.4721 18.8172 18.714 18.8488C19.2439 18.9181 19.7798 18.7756 20.2038 18.4527C20.5219 18.2105 20.7566 17.807 21.2261 16.9999C21.6956 16.1929 21.9303 15.7894 21.9827 15.395C22.0524 14.8691 21.9088 14.3372 21.5835 13.9164C21.4349 13.7243 21.2262 13.5628 20.9022 13.3608C20.4261 13.0639 20.1197 12.558 20.1197 11.9999C20.1197 11.4418 20.4261 10.9361 20.9022 10.6392C21.2263 10.4371 21.435 10.2757 21.5836 10.0835C21.9089 9.66273 22.0525 9.13087 21.9828 8.60497C21.9304 8.21055 21.6957 7.80703 21.2262 7C20.7567 6.19297 20.522 5.78945 20.2039 5.54727C19.7799 5.22436 19.244 5.08185 18.7141 5.15109C18.4722 5.18269 18.2269 5.28136 17.8887 5.4588C17.3915 5.71959 16.7969 5.73002 16.3099 5.45096C15.8229 5.17191 15.5347 4.65566 15.5136 4.09794C15.4993 3.71848 15.4628 3.45833 15.3694 3.23463C15.1649 2.74458 14.7726 2.35523 14.2788 2.15224ZM12.5 15C14.1695 15 15.5228 13.6569 15.5228 12C15.5228 10.3431 14.1695 9 12.5 9C10.8305 9 9.47716 10.3431 9.47716 12C9.47716 13.6569 10.8305 15 12.5 15Z"></path> </g></svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Settings</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<!-- alerts -->
+		{% if messages %}
+			<section class="w-full h-auto flex flex-col items-center">
+				{% for message in messages %}
+					<div id="warning-msg" class="mt-2 h-12 w-1/2 flex justify-between items-center bg-red-100 border border-red-200 text-sm text-red-800 rounded-lg p-4 dark:bg-red-800/10 dark:border-red-900 dark:text-red-500" role="alert">
+						<span class="font-bold">Error</span> <span class="ml-2">  {{ message }} </span>
+						<button type="button" id="dismiss-alert" class="inline-flex ml-auto border-red-200 bg-gray-50 rounded-lg p-1.5 text-red-800 hover:bg-white focus:outline-none dark:bg-transparent dark:hover:bg-red-800/50 dark:text-red-600" data-hs-remove-element="#dismiss-alert">
+							<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M18 6 6 18"></path>
+							<path d="m6 6 12 12"></path>
+							</svg>
+						</button>
+					</div>		
+				{% endfor %}
+				<div class="mt-4">
+					<p class="text-gray-500 italic">Server is down or Service unavailable</p>
+					<p>Sorry, the live stream is currently unavailable.</p>
+					<p>Possible reasons:</p>
+					<ul>
+						<li>Raspberry Pi has turned off.</li>
+						<li>Raspberry Pi has  disconnected from internet.</li>
+						<li>The camera can be damaged or disconnected.</li>
+					</ul>
+				</div>
+			</section>
+		{% endif %}
+		
+		<!-- main content right side -->
+		{% if livestream_url %}
+			<section class="flex justify-center w-full">
+				<iframe id="live-stream" class="rounded-lg mt-5 ring-8 ring-offset-2 ring-gray-300" height="720" width="1280" src="{{ livestream_url }}" frameborder="0"></iframe>
+				<!-- <video src="{% static 'Baby_app/videos/HTC ChaCha 480p Video Sample.mp4' %}" controls autoplay></video> -->
+			</section>
+		{% endif %}
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	<script>
+		alert_btn = document.getElementById('dismiss-alert');
+		alert_btn.addEventListener('click', ()=>{
+			document.getElementById('warning-msg').style.display = 'none';
+		});
+	</script>
+</body>
+</html>

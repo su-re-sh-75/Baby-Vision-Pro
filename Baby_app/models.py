@@ -7,7 +7,7 @@ priorities = (("High", "High"),
     
 class Notification(models.Model):
     notification_text = models.CharField(max_length=200)
-    received_at = models.DateTimeField(auto_now_add=True)
+    received_at = models.DateTimeField()
     priority_level = models.CharField(choices=priorities, max_length=20)
         
     class Meta:

@@ -1,7 +1,8 @@
 from datetime import timedelta, datetime
 import json
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from influxdb_client.client.write_api import SYNCHRONOUS
 from django.http import JsonResponse
@@ -10,12 +11,27 @@ import requests
 from .mqtt import client as mqtt_client
 from django.core.paginator import Paginator
 from .models import Notification
-
+import socket
 fcm_token = ""
 
 def index(request):
     return render(request, 'Baby_app/index.html')
 
+def livestream(request):
+    url = f'http://192.168.41.81:5000/video_feed'
+    try:
+        response = requests.head(url, timeout=5)
+        print(response)
+        print(response.status_code)
+        if response.status_code == 200:
+            return render(request, 'Baby_app/livestream.html', {'livestream_url': url})
+        else:
+            messages.error(request, ('Live stream server is not active.'))
+            return render(request, 'Baby_app/livestream.html')        
+    except requests.RequestException:
+        messages.error(request, ('Live stream server is not active.'))
+        return render(request, 'Baby_app/livestream.html')
+    
 def view_notifications(request):
     received_days = request.GET.get('received', '30')
     high_filter = request.GET.get('high', "")
@@ -34,7 +50,6 @@ def view_notifications(request):
     if low_filter != "":
         notifications_list = notifications_list.filter(priority_level='Low')
 
-    # Order the notifications
     notifications_list = notifications_list.order_by('-received_at')
 
     paginator = Paginator(notifications_list, 10)  

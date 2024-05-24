@@ -28,7 +28,7 @@
 				</button>
 				<a href="{% url 'Baby_app:index' %}" class="flex ms-2 md:me-24">
 					<img src="{% static 'Baby_app/images/sleeping-baby.png' %}" class="h-8 me-3" alt="BVP logo" />
-					<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Baby Vision Pro</span>
+					<span class="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent font-sans self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Baby Vision Pro</span>
 				</a>
 				</div>
 				<div class="flex items-center">
@@ -63,7 +63,7 @@
 		</div>
 	</nav>
     <main class="flex">
-		<aside id="logo-sidebar" class=" w-64 h-screen pt-2 bg-white border-r border-gray-200  dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+		<aside id="logo-sidebar" class=" w-64 min-h-screen pt-2 bg-white border-r border-gray-200  dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
 			<div class="h-full w-60 px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
 				<ul class="space-y-2 font-medium">
                     <li>
@@ -83,6 +83,19 @@
                             <span class="flex-1 ms-3 whitespace-nowrap">Notifications</span>
                         </a>
                     </li>
+                    <li>
+						<a href="{% url 'Baby_app:livestream' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:bg-gray-700 group">
+                            <svg class="flex-shrink-0 w-5 h-5 transition duration-75 fill-sky-500 dark:fill-sky-500 dark:group-hover:fill-sky-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                  <path d="M21.4898 4.76923C21.3878 3.4359 20.2653 2.41026 18.9388 2.30769C16.898 2.10256 14.0408 2 11.7959 2C9.55102 2 6.79592 2.10256 4.7551 2.30769C4.04082 2.30769 3.53061 2.61538 3.02041 3.12821C2.61224 3.53846 2.30612 4.15385 2.30612 4.76923C2.20408 6.41026 2 8.66667 2 10.4103C2 12.1538 2.20408 14.4103 2.30612 16.0513C2.40816 17.3846 3.53061 18.4103 4.85714 18.5128C6.89796 18.718 9.7551 18.8205 12 18.8205C14.2449 18.8205 17.102 18.6154 19.1429 18.5128C20.4694 18.4103 21.4898 17.3846 21.6939 16.0513C21.898 14.4103 22 12.1538 22 10.4103C22 8.66667 21.6939 6.41026 21.4898 4.76923ZM16.4898 8.35897L13.4286 11.4359C13.1224 11.7436 12.6122 11.7436 12.3061 11.4359L10.8776 10L8.32653 12.5641C8.12245 12.6667 8.02041 12.7692 7.81633 12.7692C7.61224 12.7692 7.40816 12.6667 7.30612 12.5641C7 12.2564 7 11.7436 7.30612 11.4359L10.3673 8.35897C10.6735 8.05128 11.1837 8.05128 11.4898 8.35897L12.9184 9.79487L15.4694 7.23077C15.7755 6.92308 16.2857 6.92308 16.5918 7.23077C16.7959 7.64103 16.7959 8.05128 16.4898 8.35897Z"></path>
+                                  <path d="M15.9796 22H7.81633C7.40816 22 7 21.6923 7 21.1795C7 20.6667 7.30612 20.359 7.81633 20.359H15.9796C16.3878 20.359 16.7959 20.6667 16.7959 21.1795C16.7959 21.6923 16.3878 22 15.9796 22Z"></path>
+                                </g>
+                              </svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Live Stream</span>
+						</a>
+					</li>
                     <li>
                         <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-5 h-5 text-yellow-300 transition duration-75 dark:text-yellow-300 group-hover:text-yellow-300 dark:group-hover:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -179,7 +192,7 @@
                                         <td class="px-4 py-3">{{ notifications.number|add:"-1"|multiply:10|add:forloop.counter }}</td>
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ notification.notification_text }}</th>
                                         <td class="px-4 py-3">{{ notification.received_at }}</td>
-                                        <td class="px-4 py-3">{{ notification.priority_level }}</td>
+                                        <td class="px-4 py-3 font-semibold {% if notification.priority_level == 'High' %}text-red-500{% elif notification.priority_level == 'Medium' %}text-yellow-300{% else %}text-green-500{% endif %}">{{ notification.priority_level }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
