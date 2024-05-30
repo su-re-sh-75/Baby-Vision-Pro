@@ -8,8 +8,8 @@ from paho.mqtt import client as mqtt_client
 
 host = 'p1d3f813.ala.asia-southeast1.emqxsl.com'
 port = 8883
-# topic = ["BVP/baby", "BVP/urine", "BVP/cry"]
-topic = ["BVP/baby"]
+topic = ["BVP/baby", "BVP/urine", "BVP/cry"]
+# topic = ["BVP/baby"]
 # generate client ID with pub prefix randomly
 # client_id = f'python-mqtt-{random.randint(0, 1000)}'
 username = 'suresh'

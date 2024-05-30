@@ -38,14 +38,14 @@ def on_message(mqtt_client, userdata, msg):
 
     new_notification.save()
 
-    local_fcm_token = 'fHTxbAlZK7sUCi8LQSsxua:APA91bFc-ZZZDQOa2DXvMwR_-aUsbYINDCrfpXJTaG1R5rrnMBwdn6JDRGdUzRIvx-Uhta4rxDjnNEc7qXcXWZN17sw7YZCyNZepP9ZC6EcI14ZFZkZTeIMXo1NsVjYIbjrJapRjOLRy'
+    local_fcm_token = 'd58VgOrGD6sa89lf4hifdY:APA91bH0aEslcQPFRztLc8M64necl-DoQVfhv47Jx9KbXRWswjyUr_ZamNbjwvDYBNqausZ6LuYhGA5sLt8T6IhRxh3vAo3tmJib3beV2Sd0fZzkMRvxs3Z1FYCC2plmp7sG8se5wA2T'
     # views.send_notification([views.fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
     views.send_notification([local_fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
     print(f'Received message on topic: {topic} with payload: {msg.payload.decode()}')
     # message = client.messages.create(
-    #      from_='+16504890117',
-    #      body= msg.payload.decode(),
-    #      to='+919342222369'
+    #     from_='+16504890117',
+    #     body= msg.payload.decode(),
+    #     to='+919342222369'
     # )
     # print(message.sid)
 
