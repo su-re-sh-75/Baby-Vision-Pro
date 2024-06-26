@@ -23,10 +23,6 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    # path('firebase-messaging-sw.js', serve, {
-    #     'path': 'firebase-messaging-sw.js',
-    #     'document_root': BASE_DIR,
-    # }),
     path('service-worker.js', serve, {
         'path': 'service-worker.js',
         'document_root': BASE_DIR,
