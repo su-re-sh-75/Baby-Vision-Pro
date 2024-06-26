@@ -10,10 +10,7 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-	<script src="{% static 'Baby_app/js/initialize_firebase.js' %}"></script>
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 </head>
 <body class="min-h-screen text-white bg-gradient-to-br from-maroon-flush-500 via-maroon-flush-400 to-maroon-flush-300">
     <header>
@@ -44,5 +41,7 @@
             <img class="w-1/2" src="{% static 'Baby_app/images/half_side_baby_sleeping-removebg.png' %}" alt="baby sleeping">   
         </section>
     </main>
+
+    <script src="{% static 'Baby_app/js/pusher-notification.js' %}"></script>
 </body>
 </html>

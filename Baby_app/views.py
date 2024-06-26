@@ -4,14 +4,13 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from influxdb_client.client.write_api import SYNCHRONOUS
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from .mqtt import client as mqtt_client
 from django.core.paginator import Paginator
 from .models import Notification
-import socket
+
 fcm_token = ""
 
 def index(request):

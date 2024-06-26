@@ -10,10 +10,7 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-	<script src="{% static 'Baby_app/js/initialize_firebase.js' %}"></script>
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 </head>
 <body class="min-h-screen flex flex-col">
 	<nav class=" w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -248,6 +245,7 @@
                 </div>
             </section>
     </main>
+    <script src="{% static 'Baby_app/js/pusher-notification.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>

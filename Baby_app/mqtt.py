@@ -5,7 +5,12 @@ from . import views
 from Baby import settings as baby_settings
 from twilio.rest import Client
 from django.utils import timezone
+from pusher_push_notifications import PushNotifications
 
+beams_client = PushNotifications(
+    instance_id='624dc809-45e5-4a7e-bd92-f36425957490',
+    secret_key='B07C522814BA8E777A18F322896A24E863A388686EDC039A1871B0EBD5819FAC',
+)
 
 def on_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
@@ -17,6 +22,7 @@ def on_connect(mqtt_client, userdata, flags, rc):
         print('Bad connection. Code:', rc)
 
 def on_message(mqtt_client, userdata, msg):
+    # initialize twilio client
     # account_sid = baby_settings.TWILIO_ACCOUNT_SID
     # auth_token = baby_settings.TWILIO_AUTH_TOKEN
     # client = Client(account_sid, auth_token)
@@ -25,23 +31,40 @@ def on_message(mqtt_client, userdata, msg):
     new_notification.notification_text = msg.payload.decode()
     new_notification.received_at = timezone.now()
     topic = msg.topic
-    icon_url = "./static/Baby_app/images/sleeping-baby.png"
     if msg.topic == "BVP/baby":
         new_notification.priority_level = "High"
-        image_url = "./static/Baby_app/images/anya-hiding-crop.jpg"
+        msg_title = 'Baby not found'
+        msg_body = 'Baby is not found with camera. Check the room.'
     elif msg.topic == "BVP/cry":
         new_notification.priority_level = "High"
-        image_url = "./static/Baby_app/images/anya-crying-2.jpg"
+        msg_title = "Baby crying"
+        msg_body = "I'm crying mom and dad."
     elif msg.topic == "BVP/urine":
         new_notification.priority_level = "Medium"
-        image_url = "./static/Baby_app/images/baby-urinated.jpg"
+        msg_title = 'Baby urinated'
+        msg_body = 'Baby has urinated. Change the cloth.'
 
     new_notification.save()
 
-    local_fcm_token = 'd58VgOrGD6sa89lf4hifdY:APA91bH0aEslcQPFRztLc8M64necl-DoQVfhv47Jx9KbXRWswjyUr_ZamNbjwvDYBNqausZ6LuYhGA5sLt8T6IhRxh3vAo3tmJib3beV2Sd0fZzkMRvxs3Z1FYCC2plmp7sG8se5wA2T'
-    # views.send_notification([views.fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
-    views.send_notification([local_fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
+    # local fcm token for chrome browser
+    # local_fcm_token = 'd58VgOrGD6sa89lf4hifdY:APA91bH0aEslcQPFRztLc8M64necl-DoQVfhv47Jx9KbXRWswjyUr_ZamNbjwvDYBNqausZ6LuYhGA5sLt8T6IhRxh3vAo3tmJib3beV2Sd0fZzkMRvxs3Z1FYCC2plmp7sG8se5wA2T'
+    # views.send_notification([local_fcm_token], "Baby Vision Pro", msg.payload.decode(), image_url)
+
+    response = beams_client.publish_to_interests(
+        interests=['BVP-user-1'],
+        publish_body={
+            'web': {
+                'notification': {
+                    'title': msg_title,
+                    'body': msg_body,
+                    'deep_link': 'http://127.0.0.1:8000/dashboard/',
+                },
+            },
+        },
+    )
+
     print(f'Received message on topic: {topic} with payload: {msg.payload.decode()}')
+    # send sms with twilio
     # message = client.messages.create(
     #     from_='+16504890117',
     #     body= msg.payload.decode(),
