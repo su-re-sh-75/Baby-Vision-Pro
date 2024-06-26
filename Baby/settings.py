@@ -32,9 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'Baby_app.apps.BabyAppConfig',
     'users.apps.UsersConfig',
-    # 'mqtt_notify.apps.MqttNotifyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +45,14 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'push_notifications',
 ]
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)]
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,7 +83,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Baby.wsgi.application'
+# WSGI_APPLICATION = 'Baby.wsgi.application'
+ASGI_APPLICATION = 'Baby.asgi.application'
 
 # Compressor settings
 COMPRESS_ROOT = BASE_DIR / 'static'
