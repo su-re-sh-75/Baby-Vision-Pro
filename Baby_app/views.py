@@ -10,7 +10,8 @@ import requests
 from .mqtt import client as mqtt_client
 from django.core.paginator import Paginator
 from .models import Notification
-
+import pusher
+from django.conf import settings
 
 def index(request):
     return render(request, 'Baby_app/index.html')
@@ -107,4 +108,3 @@ def publish_message(request):
     request_data = json.loads(request.body)
     rc, mid = mqtt_client.publish(request_data['topic'], request_data['msg'])
     return JsonResponse({'code': rc})
-

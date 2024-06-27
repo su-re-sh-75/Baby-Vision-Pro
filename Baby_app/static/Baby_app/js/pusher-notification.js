@@ -9,5 +9,5 @@ beamsClient
 )
 .then(() => beamsClient.addDeviceInterest("BVP-user-1"))
 .then(() => beamsClient.getDeviceInterests())
-.then((interests) => console.log("Current interests:", interests))
+.then((interests) => console.log("Current push notification interests:", interests))
 .catch(console.error);

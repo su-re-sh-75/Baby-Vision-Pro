@@ -1,14 +1,11 @@
-console.log("Dashboard works");
-
-const socket = new WebSocket('ws://' + window.location.host + '/ws/xyz/');
-console.log(socket)
-socket.onmessage = function(msg){
-    console.log('Server:' + msg.data);
-};
-
-socket.onopen = function(msg){
-    socket.send(JSON.stringify({
-        'message': 'Hello from Client',
-        'sender': 'Brave'
-    }));
+var pusher = new Pusher("a5728f3261909ddf0eba", {
+    cluster: "ap2",
+});
+var channel = pusher.subscribe("sensor-data-channel");
+console.log('subscribed to sensor-data-channel in channels');
+channel.bind("sensor-data-event", (data) => {
+    process_sensor_data(data);
+});
+function process_sensor_data(data){
+    console.log(data.message);
 };
