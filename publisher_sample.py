@@ -35,7 +35,7 @@ def publish(client):
     msg_count = 0
     while msg_count != 2:
         for i in topic:
-            time.sleep(1)
+            time.sleep(2)
             if i == "BVP/baby":
                 msg = "Baby not found!"
                 result = client.publish(i, msg)

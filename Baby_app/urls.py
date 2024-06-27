@@ -10,5 +10,4 @@ urlpatterns = [
     path('store_token/', views.store_token, name='store_token'),
     path('send/' , views.send, name="send"),
     path('publish/', views.publish_message, name='publish'),
-    path('test-channels/<slug>/', views.async_dashboard, name='async_dashboard'),
 ]
