@@ -10,6 +10,7 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static 'Baby_app/src/output.css' %}">
     {% endcompress %}
+	<link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
 	<script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
 	<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 </head>
@@ -112,12 +113,51 @@
 			</div>
 		</aside>
 		<!-- main content right side -->
-		<section>
+		<section class="w-full bg-gray-100">
+			<!-- general analysis -->
+			<div class="flex justify-center space-x-6 m-8 *:bg-white *:w-1/4 *:border *:p-4 *:rounded-lg">
+				<div class="hover:scale-100 hover:shadow-lg">
+					<p class="text-gray-700 font-medium">Temperature </p>
+					<p id="avg-temp" class="text-emerald-500 font-semibold text-2xl">{{ avg_temp }} <span class="text-base"> ℃ </span></p>
+					<p class="text-gray-400 italic font-medium">in last 24 hours</p>
+				</div>
+				<div class="hover:scale-100 hover:shadow-lg">
+					<p class="text-gray-700 font-medium">Humidity</p>
+					<p id="avg-humid" class="text-sky-500 font-semibold text-2xl">{{ avg_humid }} <span class="text-base">g/m<sup>3</sup></span></p>
+					<p class="text-gray-400 italic font-medium"> in last 24 hours</p>
+				</div>
+				<div class="hover:scale-100 hover:shadow-lg">
+					<p class="text-gray-700 font-medium">Baby cried</p>
+					<p id="cried-x-data" class="text-yellow-300 font-semibold text-2xl">{{ cried_times }}</p>
+					<p class="text-gray-400 italic font-medium">times today</p>
+				</div>
+				<div class="hover:scale-100 hover:shadow-lg">
+					<p class="text-gray-700 font-medium">Baby was missing</p>
+					<p id="missing-x-data" class="text-red-500 font-semibold text-2xl">{{ missed_times }}</p>
+					<p class="text-gray-400 italic font-medium">times today</p>
+				</div>
+				<div class="hover:scale-100 hover:shadow-lg">
+					<p class="text-gray-700 font-medium">Baby urinated</p>
+					<p id="urinated-x-data" class="text-green-500 font-semibold text-2xl">{{ urinated_times }}</p>
+					<p class="text-gray-400 italic font-medium">times today</p>
+				</div>
+			</div>
+			
+			<div class="flex m-8 space-x-6 *:bg-white *:border *:rounded-md">
+				<div>
+					<p class="text-gray-700 font-medium mx-8 mt-4">Temperature, Humidity <span class="mx-2 text-gray-400 italic font-medium">in last 24 hours</span></p>
+					<div id="area-chart" class="p-2"></div>
+				</div>
+				<div class="flex flex-grow">
+					<div id="gauge-temp-chart" class=""></div>
+					<div id="gauge-humid-chart" class=""></div>
+				</div>
+			</div>
 		</section>
     </main>
+	<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="{% static 'Baby_app/js/pusher-notification.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>	
 	<script src="{% static 'Baby_app/js/dashboard_test.js' %}"></script>
 </body>
 </html>

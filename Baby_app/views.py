@@ -1,20 +1,67 @@
 from datetime import timedelta, datetime
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import influxdb_client
 import requests
 from .mqtt import client as mqtt_client
 from django.core.paginator import Paginator
 from .models import Notification
-import pusher
-from django.conf import settings
+from django.utils import timezone
+
+bucket = "BVP"
+org = "BVP"
+token = "xEEu4SJEKXcSRXsTiQngcTPFG0TCzCr2LDWmxN887D9RFhRSRk7UqJsQMIaAObZpLKQXle23QtK_RY0k0sDNew=="
+url = "http://localhost:8086"
+
+client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 def index(request):
     return render(request, 'Baby_app/index.html')
+
+def get_initial_data(request):
+    query = 'from(bucket: "BVP")\
+            |> range(start: -1d)\
+            |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
+            |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")'
+    
+    query_api = client.query_api()
+    result = query_api.query(org=org, query=query)
+    initial_data = {
+        'initial_humidity_data':[],
+        'initial_temp_data':[]
+    }
+    if result[0].records[0].get_field() == 'humidity':
+        for record in result[0].records:
+            initial_data["initial_humidity_data"].append({'x': record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y': round(record.get_value(), 2)})
+    if result[1].records[0].get_field() == 'temperature':
+        for record in result[1].records:
+            initial_data['initial_temp_data'].append({'x':record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y':round(record.get_value(), 2)})
+    return JsonResponse(initial_data)
+
+@login_required(login_url='/users/login/')
+def dashboard(request):
+    context = {}
+    query = 'from(bucket: "BVP")\
+            |> range(start: -1d)\
+            |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
+            |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")\
+            |> mean()'
+    query_api = client.query_api()
+    result = query_api.query(org=org, query=query)
+    context['avg_humid'] = round(result[0].records[0].get_value(), 2)
+    context['avg_temp'] = round(result[1].records[0].get_value(), 2)
+
+    last_day = timezone.now() - timedelta(days=1)
+    context['cried_times'] = Notification.objects.filter(notification_text__contains="cry", received_at__gte=last_day).count()
+    context['missed_times'] = Notification.objects.filter(notification_text__contains="not found", received_at__gte=last_day).count()
+    context['urinated_times'] = Notification.objects.filter(notification_text__contains="urinated", received_at__gte=last_day).count()
+    context['user'] = request.user
+    return render(request, 'Baby_app/dashboard.html', context=context)
 
 def livestream(request):
     url = f'http://192.168.41.81:5000/video_feed'
@@ -65,44 +112,6 @@ def view_notifications(request):
     }
 
     return render(request, 'Baby_app/notification.html', context)
-
-@login_required(login_url='/users/login/')
-def dashboard(request):
-    '''
-    bucket = "PiData"
-    org = "BabyMonitoringApp"
-    token = "X8fiTDmuE54FgUSG3v9mk6_5PUY9NclEM6z92p468k6KZ3gt4-v-xHPoUYPSPDSetZlR5K0uLT3L1-bal35h4A=="
-    url="http://192.168.43.4:8000"
-
-    client = influxdb_client.InfluxDBClient(
-        url=url,
-        token=token,
-        org=org
-    )
-
-    # Query script
-    query_api = client.query_api()
-
-    query = 'from(bucket: "PiData")\
-  |> range(start:-1d)\
-  |> filter(fn: (r) => r["_measurement"] == "PI_TEST")\
-  |> filter(fn: (r) => r["PI"] == "0")\
-  |> filter(fn: (r) => r["_field"] == "Humidity_f" or r["_field"] == "Temperature_f" or r["_field"] == "Urinated")'
-
-    result = query_api.query(org=org, query=query)
-    context = {'temperature':[],
-               'humidity':[],
-               'urinated':[]
-               }
-    print(result)
-    print(result[0].records)
-    for table in result:
-         for record in table.records:
-             context['temperature'].append((record.get_field(), record.get_time(), record.get_value() ))
-    '''
-    context = {}
-    context['user'] = request.user
-    return render(request, 'Baby_app/dashboard.html', context=context)
 
 def publish_message(request):
     request_data = json.loads(request.body)

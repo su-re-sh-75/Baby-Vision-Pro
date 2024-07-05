@@ -11,4 +11,4 @@ pusher_client = pusher.Pusher(
         secret=secret,
         cluster=cluster
     )
-pusher_client.trigger('sensor-data-channel', 'sensor-data-event', {'message': 'hello world'})
+pusher_client.trigger('sensor-data-channel', 'sensor-data', {'message': 'hello world'})
