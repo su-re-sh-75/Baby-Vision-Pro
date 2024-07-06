@@ -15,7 +15,7 @@
 	<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 </head>
 <body class="min-h-screen flex flex-col">
-	<nav class=" w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+	<nav class="w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center justify-start rtl:justify-end">
@@ -143,14 +143,30 @@
 				</div>
 			</div>
 			
-			<div class="flex m-8 space-x-6 *:bg-white *:border *:rounded-md">
+			<!-- Temperature, Humidity analysis -->
+			<div class="flex flex-grow m-8 space-x-6 w-full *:bg-white *:border *:rounded-md">
 				<div>
 					<p class="text-gray-700 font-medium mx-8 mt-4">Temperature, Humidity <span class="mx-2 text-gray-400 italic font-medium">in last 24 hours</span></p>
 					<div id="area-chart" class="p-2"></div>
 				</div>
-				<div class="flex flex-grow">
-					<div id="gauge-temp-chart" class=""></div>
-					<div id="gauge-humid-chart" class=""></div>
+				<div class="flex p-4">
+					<div class="flex flex-col items-center">
+						<div id="gauge-temp-chart"></div>
+						<div class="space-y-2">
+							<p class="text-emerald-500 font-semibold">Temperature</p>
+							<p class="">Minimum : <span id="min-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
+							<p class="">Maximum : <span id="max-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
+							<p class="text-gray-400 italic">Both in last 24 hours</p>
+						</div>
+					</div>
+					<div class="flex flex-col items-center">
+						<div id="gauge-humid-chart"></div>
+						<div class="space-y-2">
+							<p class="text-sky-500 font-semibold">Humidity</p>
+							<p class="">Minimum : <span id="min-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
+							<p class="">Maximum : <span id="max-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

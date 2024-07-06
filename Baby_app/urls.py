@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('api/initial-data/', views.get_initial_data, name='initial-data'),
+    path('api/min-max-last-data/', views.get_min_max_last_data, name='min-max-last-data'),
     path('view_notifications/', views.view_notifications, name='view_notifications'),
     path('stream/', views.livestream, name='livestream'),
     path('publish/', views.publish_message, name='publish'),

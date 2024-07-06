@@ -24,24 +24,70 @@ def index(request):
     return render(request, 'Baby_app/index.html')
 
 def get_initial_data(request):
-    query = 'from(bucket: "BVP")\
+    '''
+    Returns a JSON with initial temp, humid data
+    '''
+    query_api = client.query_api()
+
+    initial_data_query = 'from(bucket: "BVP")\
             |> range(start: -1d)\
             |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
             |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")'
     
-    query_api = client.query_api()
-    result = query_api.query(org=org, query=query)
-    initial_data = {
+    last_data_query = f'{initial_data_query}\
+        |> last()'
+    min_data_query = f'{initial_data_query}\
+        |> min()'
+    max_data_query = f'{initial_data_query}\
+        |> max()'
+    
+    initial_data_result = query_api.query(org=org, query=initial_data_query)
+    
+
+    data = {
         'initial_humidity_data':[],
-        'initial_temp_data':[]
+        'initial_temp_data':[],
     }
-    if result[0].records[0].get_field() == 'humidity':
-        for record in result[0].records:
-            initial_data["initial_humidity_data"].append({'x': record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y': round(record.get_value(), 2)})
-    if result[1].records[0].get_field() == 'temperature':
-        for record in result[1].records:
-            initial_data['initial_temp_data'].append({'x':record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y':round(record.get_value(), 2)})
-    return JsonResponse(initial_data)
+    if initial_data_result[0].records[0].get_field() == 'humidity':
+        for record in initial_data_result[0].records:
+            data["initial_humidity_data"].append({'x': record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y': round(record.get_value(), 2)})
+    if initial_data_result[1].records[0].get_field() == 'temperature':
+        for record in initial_data_result[1].records:
+            data['initial_temp_data'].append({'x':record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y':round(record.get_value(), 2)})
+
+    return JsonResponse(data)
+
+def get_min_max_last_data(request):
+    '''
+    Returns a JSON with min, max, last values of temp and humid data
+    '''
+    query_api = client.query_api()
+    base_query = 'from(bucket: "BVP")\
+            |> range(start: -1d)\
+            |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
+            |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")'
+    
+    last_data_query = f'{base_query}\
+        |> last()'
+    min_data_query = f'{base_query}\
+        |> min()'
+    max_data_query = f'{base_query}\
+        |> max()'
+    
+    last_data_result = query_api.query(org=org, query=last_data_query)
+    min_data_result = query_api.query(org=org, query=min_data_query)
+    max_data_result = query_api.query(org=org, query=max_data_query)
+
+    data = {}
+    data['last_humid'] = round(last_data_result[0].records[0].get_value(), 2)
+    data['last_temp'] = round(last_data_result[1].records[0].get_value(), 2)
+    data['min_humid'] = round(min_data_result[0].records[0].get_value(), 2)
+    data['min_temp'] = round(min_data_result[1].records[0].get_value(), 2)
+    data['max_humid'] = round(max_data_result[0].records[0].get_value(), 2)
+    data['max_temp'] = round(max_data_result[1].records[0].get_value(), 2)
+
+    return JsonResponse(data)
+
 
 @login_required(login_url='/users/login/')
 def dashboard(request):
