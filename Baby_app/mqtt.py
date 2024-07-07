@@ -36,11 +36,11 @@ def on_message(mqtt_client, userdata, msg):
         msg_title = 'Baby not found'
         msg_body = 'Baby is not found with camera. Check the room.'
     elif msg.topic == "BVP/cry":
-        new_notification.priority_level = "High"
+        new_notification.priority_level = "Medium"
         msg_title = "Baby crying"
         msg_body = "I'm crying mom and dad."
     elif msg.topic == "BVP/urine":
-        new_notification.priority_level = "Medium"
+        new_notification.priority_level = "Low"
         msg_title = 'Baby urinated'
         msg_body = 'Baby has urinated. Change the cloth.'
 

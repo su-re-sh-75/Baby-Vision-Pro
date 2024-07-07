@@ -146,7 +146,7 @@
 			<!-- Temperature, Humidity analysis -->
 			<div class="flex flex-grow m-8 space-x-6 w-full *:bg-white *:border *:rounded-md">
 				<div>
-					<p class="text-gray-700 font-medium mx-8 mt-4">Temperature, Humidity <span class="mx-2 text-gray-400 italic font-medium">in last 24 hours</span></p>
+					<p class="text-gray-700 text-sm font-semibold mx-8 mt-4 uppercase">Temperature, Humidity <span class="mx-2 text-gray-400 italic normal-case font-medium">in last 24 hours</span></p>
 					<div id="area-chart" class="p-2"></div>
 				</div>
 				<div class="flex p-4">
@@ -154,8 +154,8 @@
 						<div id="gauge-temp-chart"></div>
 						<div class="space-y-2">
 							<p class="text-emerald-500 font-semibold">Temperature</p>
-							<p class="">Minimum : <span id="min-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
-							<p class="">Maximum : <span id="max-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
+							<p>Minimum : <span id="min-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
+							<p>Maximum : <span id="max-temp" class="text-emerald-500 text-lg font-semibold"></span> <span class="text-emerald-500 text-lg font-semibold">℃</span></p>
 							<p class="text-gray-400 italic">Both in last 24 hours</p>
 						</div>
 					</div>
@@ -163,11 +163,55 @@
 						<div id="gauge-humid-chart"></div>
 						<div class="space-y-2">
 							<p class="text-sky-500 font-semibold">Humidity</p>
-							<p class="">Minimum : <span id="min-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
-							<p class="">Maximum : <span id="max-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
+							<p>Minimum : <span id="min-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
+							<p>Maximum : <span id="max-humid" class="text-sky-500 text-lg font-semibold"></span> <span class="text-sky-500 text-lg font-semibold">g/m<sup>3</sup></span></p>
 						</div>
 					</div>
 				</div>
+			</div>
+			<!-- Notification analysis -->
+			<div class="flex m-8 space-x-6 w-full *:bg-white *:border *:rounded-md">
+				<div class="flex flex-col w-1/3 p-4">
+					<p class="text-gray-700 text-sm font-semibold uppercase mx-8 my-4">Notification Proportion <span class="mx-2 normal-case text-gray-400 italic font-medium">in last 24 hours</span></p>
+					<div class="flex">
+						<div id="donut-chart"></div>
+						<div class=" flex flex-col space-y-4 justify-center">
+							<div class="*:inline-block *:align-middle">
+								<div class="w-4 h-4 bg-emerald-400 rounded-full p-2"></div>
+								<p>Low</p>
+								<p>-</p>
+								<p id="low-count"></p>
+							</div>
+							<div class="*:inline-block *:align-middle">
+								<div class="w-4 h-4 bg-yellow-300 rounded-full px-2"></div>
+								<p>Medium</p>
+								<p>-</p>
+								<p id="medium-count"></p>
+							</div>
+							<div class="*:inline-block *:align-middle">
+								<div class="w-4 h-4 bg-red-400 rounded-full px-2s"></div>
+								<p>High</p>
+								<p>-</p>
+								<p id="high-count"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="text-sm text-left text-gray-500 dark:text-gray-400 w-1/2">
+						<tr class="h-4 text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+							<th colspan="4"><a href="{% url 'Baby_app:view_notifications' %}" class="p-4 w-full text-center">Latest Notification</a></th>
+						</tr>
+					<tbody>
+						{% for notification in notifications %}
+							<tr class="border dark:border-gray-700 h-5">
+								<td class="px-4 border-r text-center">{{ forloop.counter }}</td>
+								<th scope="row" class="px-4 font-medium border-r whitespace-nowrap dark:text-white">{{ notification.notification_text }}</th>
+								<td class="px-4 border-r">{{ notification.received_at }}</td>
+								<td class="px-4 font-semibold {% if notification.priority_level == 'High' %}text-red-500{% elif notification.priority_level == 'Medium' %}text-yellow-300{% else %}text-green-500{% endif %}">{{ notification.priority_level }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</section>
     </main>

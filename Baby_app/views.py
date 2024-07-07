@@ -88,6 +88,19 @@ def get_min_max_last_data(request):
 
     return JsonResponse(data)
 
+def get_notification_data(request):
+    '''
+    Returns a JSON with notification count data
+    '''
+    data = {
+        'series_arr':[]
+    }
+    last_day = timezone.now() - timedelta(days=1)
+    for i in ['Low', 'Medium', 'High']:
+        data['series_arr'].append(Notification.objects.filter(priority_level=i, received_at__gte=last_day).count())
+    print(data)
+    return JsonResponse(data)
+    
 
 @login_required(login_url='/users/login/')
 def dashboard(request):
@@ -106,6 +119,7 @@ def dashboard(request):
     context['cried_times'] = Notification.objects.filter(notification_text__contains="cry", received_at__gte=last_day).count()
     context['missed_times'] = Notification.objects.filter(notification_text__contains="not found", received_at__gte=last_day).count()
     context['urinated_times'] = Notification.objects.filter(notification_text__contains="urinated", received_at__gte=last_day).count()
+    context['notifications'] = Notification.objects.order_by('-received_at')[:5]
     context['user'] = request.user
     return render(request, 'Baby_app/dashboard.html', context=context)
 

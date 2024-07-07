@@ -108,15 +108,55 @@ var gauge_humid_options = {
 	labels: ["Humidity"]
   };
   
+var donut_options = {
+	series: [44, 55, 41],
+	labels:['Low', 'Medium', 'High'],
+	colors:['#34d399','#fde047', '#f87171'],
+	chart: {
+		width: 380,
+		type: 'donut',
+  	},
+	plotOptions: {
+		pie: {
+			startAngle: 0,
+			endAngle: 360
+		}
+	},
+	dataLabels: {
+		enabled: false
+	},
+	fill: {
+		type: 'gradient',
+		gradient:{
+			type: 'vertical',
+			gradientToColors: ['#6ee7b7','#fef08a', '#fca5a5'],
+		},
+	},
+	onItemHover: {
+		highlightDataSeries: true
+	},
+	legend: {
+		show: false,
+		formatter: function(val, opts) {
+		return val + " - " + opts.w.globals.series[opts.seriesIndex]
+		}
+	},
+};
+
 const gauge_temp_chart = new ApexCharts(document.querySelector("#gauge-temp-chart"), gauge_temp_options);
 gauge_temp_chart.render();
 const gauge_humid_chart = new ApexCharts(document.querySelector("#gauge-humid-chart"), gauge_humid_options);
 gauge_humid_chart.render();
+const donut_chart = new ApexCharts(document.querySelector("#donut-chart"), donut_options);
+donut_chart.render();
 
 var min_temp_ele = document.querySelector("#min-temp");
 var max_temp_ele = document.querySelector("#max-temp");
 var min_humid_ele = document.querySelector("#min-humid");
 var max_humid_ele = document.querySelector("#max-humid");
+var low_count = document.querySelector("#low-count");
+var medium_count = document.querySelector("#medium-count");
+var high_count = document.querySelector("#high-count");
 
 document.addEventListener('DOMContentLoaded', function() {
 	fetch('/api/initial-data/')
@@ -184,4 +224,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			max_humid_ele.textContent = data.max_humid;
 		})
 		.catch(error => console.error('Error fetching data:', error));
+
+		fetch('/api/notification-data/')
+		.then(response => response.json())
+		.then(data => {
+			donut_chart.updateSeries(data.series_arr);
+			low_count.textContent = data.series_arr[0];
+			medium_count.textContent = data.series_arr[1];
+			high_count.textContent = data.series_arr[2];
+		})
+		.catch(error => console.error('Error fetching data:', error));
+
 });
