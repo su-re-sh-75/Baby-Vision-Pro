@@ -12,6 +12,8 @@ from .mqtt import client as mqtt_client
 from django.core.paginator import Paginator
 from .models import Notification
 from django.utils import timezone
+import os
+import cv2
 
 bucket = "BVP"
 org = "BVP"
@@ -163,3 +165,67 @@ def view_notifications(request):
     }
 
     return render(request, 'Baby_app/notification.html', context)
+
+def videos(request):
+
+    def videos(request):
+        video_path = '/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos'
+        videos = []
+        context = {}
+        for filename in os.listdir(video_path):
+            if filename.endswith('.mp4') or filename.endswith('.avi'):
+                video = {}
+                video['path'] = os.path.join(video_path, filename)
+                video['name'] = filename
+                video['thumbnail'] = os.path.join(video_path, f"{os.path.splitext(filename)[0]}.jpg")
+
+                if not os.path.exists(video['thumbnail']):
+                    # Extract thumbnail
+                    cap = cv2.VideoCapture(video['path'])
+                    success, frame = cap.read()
+                    if success:
+                        cv2.imwrite(video['thumbnail'], frame)
+                    cap.release()
+                # Get file creation time
+                creation_time = os.path.getctime(video['path'])
+                # Get file modification time
+                modification_time = os.path.getmtime(video['path'])
+                video['creation_time'] = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d %H:%M:%S')
+                video['modification_time'] = datetime.fromtimestamp(modification_time).strftime('%Y-%m-%d %H:%M:%S')
+                videos.append(video)
+
+        
+
+        return render(request, 'Baby_app/videos.html', context)
+    video_path = '/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos'
+    videos = []
+    context = {}
+    for filename in os.listdir(video_path):
+        if filename.endswith('.mp4') or filename.endswith('.avi'):
+            video = {}
+            video['path'] = os.path.join(video_path, filename)
+            video['name'] = filename
+            video['thumbnail'] = os.path.join(video_path, f"{os.path.splitext(filename)[0]}.jpg")
+
+            if not os.path.exists(video['thumbnail']):
+                # Extract thumbnail
+                cap = cv2.VideoCapture(video['path'])
+                success, frame = cap.read()
+                if success:
+                    cv2.imwrite(video['thumbnail'], frame)
+                cap.release()
+            # Get file creation time
+            creation_time = os.path.getctime(video['path'])
+            # Get file modification time
+            modification_time = os.path.getmtime(video['path'])
+            video['creation_time'] = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d %H:%M:%S')
+            video['modification_time'] = datetime.fromtimestamp(modification_time).strftime('%Y-%m-%d %H:%M:%S')
+            videos.append(video)
+    print(videos)
+    paginator = Paginator(videos, 10) 
+
+    page_number = request.GET.get('page')
+    videos = paginator.get_page(page_number)
+    context['videos'] = videos
+    print(context['videos'])
+    return render(request, 'Baby_app/videos.html', context)

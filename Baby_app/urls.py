@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/notification-data/', views.get_notification_data, name='notification-data'),
     path('view_notifications/', views.view_notifications, name='view_notifications'),
     path('stream/', views.livestream, name='livestream'),
+    path('videos/', views.videos, name='videos'),
 ]

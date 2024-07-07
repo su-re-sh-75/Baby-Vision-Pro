@@ -74,7 +74,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'Baby_app:view_notifications' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:bg-gray-700 group">
+                        <a href="{% url 'Baby_app:view_notifications' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-5 h-5 transition duration-75 dark:text-pink-600 text-pink-600 dark:group-hover:text-pink-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                             </svg>
@@ -95,7 +95,7 @@
 						</a>
 					</li>
                     <li>
-                        <a href="{% url 'Baby_app:videos' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="{% url 'Baby_app:videos' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-5 h-5 text-yellow-300 transition duration-75 dark:text-yellow-300 group-hover:text-yellow-300 dark:group-hover:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                 <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                             </svg>
@@ -174,23 +174,15 @@
                     </div>
                     <!-- table content start -->
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3">Sl.No</th>
-                                    <th scope="col" class="px-4 py-3">Description</th>
-                                    <th scope="col" class="px-4 py-3">Received at</th>
-                                    <th scope="col" class="px-4 py-3">Priority</th>
-                                </tr>
-                            </thead>
+                        
                             <tbody>
                                 {% load mathfilters %}
-                                {% for notification in notifications %}
+                                {% for video in videos %}
                                     <tr class="border-b dark:border-gray-700 h-14 cursor-pointer hover:bg-gray-100">
-                                        <td class="px-4 py-3">{{ notifications.number|add:"-1"|multiply:10|add:forloop.counter }}</td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ notification.notification_text }}</th>
-                                        <td class="px-4 py-3">{{ notification.received_at }}</td>
-                                        <td class="px-4 py-3 font-semibold {% if notification.priority_level == 'High' %}text-red-500{% elif notification.priority_level == 'Medium' %}text-yellow-300{% else %}text-green-500{% endif %}">{{ notification.priority_level }}</td>
+                                        <td class="px-4 py-3">{{ forloop.counter }}</td>
+                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ video.name }}</th>
+                                        <td class="px-4 py-3">{{ video.path }}</td>
+                                        <td class="px-4 py-3 font-semibold text-green-500">{{ video.creation_time }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
