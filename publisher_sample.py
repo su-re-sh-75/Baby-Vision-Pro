@@ -33,9 +33,9 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
-    while msg_count != 2:
+    while msg_count != 4:
         for i in topic:
-            time.sleep(2)
+            time.sleep(1)
             if i == "BVP/baby":
                 msg = "Baby not found!"
                 result = client.publish(i, msg)

@@ -23,7 +23,7 @@ def influx_write():
         point = influxdb_client.Point("sensor-data").tag("device", "sensor").field("temperature", temperature).field("humidity", humidity)
         write_api.write(bucket=bucket, org=org, record=point)
         print(i, "Written", temperature, humidity)
-        time.sleep(10)  
+        time.sleep(2)  
 
 def influx_read():
     query = 'from(bucket: "BVP")\

@@ -30,19 +30,11 @@ def get_initial_data(request):
     query_api = client.query_api()
 
     initial_data_query = 'from(bucket: "BVP")\
-            |> range(start: -1d)\
+            |> range(start: -5m)\
             |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
             |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")'
     
-    last_data_query = f'{initial_data_query}\
-        |> last()'
-    min_data_query = f'{initial_data_query}\
-        |> min()'
-    max_data_query = f'{initial_data_query}\
-        |> max()'
-    
     initial_data_result = query_api.query(org=org, query=initial_data_query)
-    
 
     data = {
         'initial_humidity_data':[],
@@ -98,7 +90,6 @@ def get_notification_data(request):
     last_day = timezone.now() - timedelta(days=1)
     for i in ['Low', 'Medium', 'High']:
         data['series_arr'].append(Notification.objects.filter(priority_level=i, received_at__gte=last_day).count())
-    print(data)
     return JsonResponse(data)
     
 
@@ -172,8 +163,3 @@ def view_notifications(request):
     }
 
     return render(request, 'Baby_app/notification.html', context)
-
-def publish_message(request):
-    request_data = json.loads(request.body)
-    rc, mid = mqtt_client.publish(request_data['topic'], request_data['msg'])
-    return JsonResponse({'code': rc})
