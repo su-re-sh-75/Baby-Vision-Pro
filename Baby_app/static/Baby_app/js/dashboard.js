@@ -34,7 +34,7 @@ var area_options = {
 				delay: 150
 			},
 			dynamicAnimation: {
-				enabled: false,
+				enabled: true,
 				speed: 400
 			}
 		}
@@ -229,28 +229,31 @@ document.addEventListener('DOMContentLoaded', function() {
 				name: 'Humidity',
 				data: initialHumidityData
 			}]);
+			console.log(data);
 		})
 		.catch(error => console.error('Error fetching initial data:', error));
-
+		
 	fetch('/api/min-max-last-data/')
-		.then(response => response.json())
-		.then(data => {
+	.then(response => response.json())
+	.then(data => {
 			gauge_humid_chart.updateSeries([data.last_humid]);
 			gauge_temp_chart.updateSeries([data.last_temp]);
 			min_temp_ele.textContent = data.min_temp;
 			max_temp_ele.textContent = data.max_temp;
 			min_humid_ele.textContent = data.min_humid;
 			max_humid_ele.textContent = data.max_humid;
+			console.log(data);
 		})
 		.catch(error => console.error('Error fetching data:', error));
-
-	fetch('/api/notification-data/')
+		
+		fetch('/api/notification-data/')
 		.then(response => response.json())
 		.then(data => {
 			donut_chart.updateSeries(data.series_arr);
 			low_count.textContent = data.series_arr[0];
 			medium_count.textContent = data.series_arr[1];
 			high_count.textContent = data.series_arr[2];
+			console.log(data);
 		})
 		.catch(error => console.error('Error fetching data:', error));
 });

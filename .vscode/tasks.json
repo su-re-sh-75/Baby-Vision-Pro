@@ -34,7 +34,7 @@
             }
         },
         {
-            "label": "Start procs",
+            "label": "Start all processes",
             "dependsOn": ["Run server", "Celery worker", "Celery beat"]
         }
    ]

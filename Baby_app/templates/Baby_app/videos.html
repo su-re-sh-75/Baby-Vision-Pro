@@ -112,133 +112,163 @@
 			</div>
 		</aside>
 		<!-- notifications - right half of body -->
-        <section class="bg-gray-50 w-full dark:bg-gray-900 p-3 sm:p-5">
+        <section class="bg-gray-50 w-full h-full dark:bg-gray-900 p-3 sm:p-5">
             <!-- whole table -->
-            <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <!-- table top bar start -->
-                    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <!-- filter -->
-                            <div class="flex items-center space-x-3 w-full md:w-auto">
-                                <form action="{{ request.path }}" method="get">
-                                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-sky-500 focus:z-10 focus:ring-2 focus:ring-sky-500 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 group" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400 group-hover:text-sky-500" viewbox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                                        </svg>
-                                        Filter
-                                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </button>
-                                    <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Priority</h6>
-                                        <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                            <li class="flex items-center">
-                                                <input id="high" type="checkbox" name="high" value="high" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="high" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">High</label>
-                                            </li>
-                                            <li class="flex items-center">
-                                                <input id="medium" type="checkbox" name="medium" value="medium" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="medium" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Medium</label>
-                                            </li>
-                                            <li class="flex items-center">
-                                                <input id="low" type="checkbox" name="low" value="low" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="low" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Low</label>
-                                            </li>
-                                        </ul>
-                                        <h6 class="my-3 text-sm font-medium text-gray-900 dark:text-white">Received</h6>
-                                        <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                            <li class="flex items-center">
-                                                <input id="received" type="radio" name="received" value="1" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="received" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last day</label>
-                                            </li>
-                                            <li class="flex items-center">
-                                                <input id="received" type="radio" name="received" value="7" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="received" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last 7 days</label>
-                                            </li>
-                                            <li class="flex items-center">
-                                                <input id="received" type="radio" name="received" value="30" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="received" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last 30 days</label>
-                                            </li>
-                                        </ul>
-                                        <div class="bg-gradient-to-b from-sky-500 to-sky-400 mt-2 h-8 rounded cursor-pointer flex items-center justify-center">
-                                            <input class="text-white cursor-pointer w-full" type="submit" value="submit">
-                                            <!-- <label class="flex justify-center items-center cursor-pointer w-full">
-                                                <svg class="fill-white w-6 h-6" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z" ></path> </g></svg> 
-                                            </label> -->
-                                        </div>
+            <div class="bg-white dark:bg-gray-800 relative h-full shadow-md sm:rounded-lg overflow-hidden">
+                <!-- table top bar start -->
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <!-- filter -->
+                        <div class="flex items-center space-x-3 w-full md:w-auto">
+                            <form action="{{ request.path }}" method="get">
+                                <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-sky-500 focus:z-10 focus:ring-2 focus:ring-sky-500 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 group" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400 group-hover:text-sky-500" viewbox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                    </svg>
+                                    Filter
+                                    <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                                <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <h6 class="my-3 text-sm font-medium text-gray-900 dark:text-white">Stored</h6>
+                                    <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+                                        <li class="flex items-center">
+                                            <input id="stored" type="radio" name="stored" value="1" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="stored" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last day</label>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <input id="stored" type="radio" name="stored" value="7" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="stored" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last 7 days</label>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <input id="stored" type="radio" name="stored" value="30" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-sky-500 focus:text-sky-600 dark:focus:text-sky-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="stored" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Last 30 days</label>
+                                        </li>
+                                    </ul>
+                                    <div class="bg-gradient-to-b from-sky-500 to-sky-400 mt-2 h-8 rounded cursor-pointer flex items-center justify-center">
+                                        <input class="text-white cursor-pointer w-full" type="submit" value="submit">
                                     </div>
-                                </form>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+                    <!-- table content start -->
+                <div class="overflow-y-auto">
+                    {% load mathfilters %}
+                    {% for video in videos %}
+                        <div class="flex border-b dark:border-gray-700 cursor-pointer hover:bg-gray-100"  data-video-src="{% static video.path %}" onclick="show_modal(event)">
+                            <p class="px-4 py-3">{{ videos.number|add:"-1"|multiply:10|add:forloop.counter }}</p>
+                            <img src="{% static video.thumbnail %}" alt="thumbnail" class="size-28 p-2 rounded-3xl">
+                            <div>
+                                <p class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ video.name }}</p>
+                                <p class="px-4 py-3 font-semibold text-green-500">{{ video.creation_time }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Video viewing Modal  -->
+                <!-- Main modal -->
+                <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-2xl max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <!-- Modal header -->
+                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 id="video-title" class="text-xl font-semibold text-gray-900 dark:text-white"> </h3>
+                                <button type="button" onclick="modal.hide()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-4 md:p-5 space-y-4">
+                                <video id="my-video" width="1920" height="1080" controls>
+                                    <source src="" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
                             </div>
                         </div>
                     </div>
-                    <!-- table content start -->
-                    <div class="overflow-x-auto">
-                        
-                            <tbody>
-                                {% load mathfilters %}
-                                {% for video in videos %}
-                                    <tr class="border-b dark:border-gray-700 h-14 cursor-pointer hover:bg-gray-100">
-                                        <td class="px-4 py-3">{{ forloop.counter }}</td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ video.name }}</th>
-                                        <td class="px-4 py-3">{{ video.path }}</td>
-                                        <td class="px-4 py-3 font-semibold text-green-500">{{ video.creation_time }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- pagination -->
-                    <nav class="flex justify-center my-4">
-                        <ul class="flex items-center -space-x-px h-10 text-base">
-                            {% if notifications.has_previous %}
-                            <li>
-                                <a href="?page=1&received={{ received_days }}&high={{ high_filter }}&medium={{ medium_filter }}&low={{ low_filter }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
-                                    <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.85355 3.85355C7.04882 3.65829 7.04882 3.34171 6.85355 3.14645C6.65829 2.95118 6.34171 2.95118 6.14645 3.14645L2.14645 7.14645C1.95118 7.34171 1.95118 7.65829 2.14645 7.85355L6.14645 11.8536C6.34171 12.0488 6.65829 12.0488 6.85355 11.8536C7.04882 11.6583 7.04882 11.3417 6.85355 11.1464L3.20711 7.5L6.85355 3.85355ZM12.8536 3.85355C13.0488 3.65829 13.0488 3.34171 12.8536 3.14645C12.6583 2.95118 12.3417 2.95118 12.1464 3.14645L8.14645 7.14645C7.95118 7.34171 7.95118 7.65829 8.14645 7.85355L12.1464 11.8536C12.3417 12.0488 12.6583 12.0488 12.8536 11.8536C13.0488 11.6583 13.0488 11.3417 12.8536 11.1464L9.20711 7.5L12.8536 3.85355Z"></path> </g></svg>
-                                    <span class="ml-1">First</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="?page={{ notifications.previous_page_number }}&received={{ received_days }}&high={{ high_filter }}&medium={{ medium_filter }}&low={{ low_filter }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                    </svg>
-                                    <span class="ml-1">Previous</span>
-                                </a>
-                              </li>
-                            {% endif %}
-                            <li>
-                                <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">{{ notifications.number }}</span>
-                            </li>
-                            <li>
-                                <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">of</span>
-                            </li>
-                            <li>
-                                <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">{{ notifications.paginator.num_pages }}</span>
-                            </li>
-        
-                            {% if notifications.has_next %}
-                                <li>
-                                    <a href="?page={{ notifications.next_page_number }}&received={{ received_days }}&high={{ high_filter }}&medium={{ medium_filter }}&low={{ low_filter }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="mr-1">Next</span>
-                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="?page={{ notifications.paginator.num_pages }}&received={{ received_days }}&high={{ high_filter }}&medium={{ medium_filter }}&low={{ low_filter }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
-                                        <span class="mr-1">Last</span>
-                                        <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2.14645 11.1464C1.95118 11.3417 1.95118 11.6583 2.14645 11.8536C2.34171 12.0488 2.65829 12.0488 2.85355 11.8536L6.85355 7.85355C7.04882 7.65829 7.04882 7.34171 6.85355 7.14645L2.85355 3.14645C2.65829 2.95118 2.34171 2.95118 2.14645 3.14645C1.95118 3.34171 1.95118 3.65829 2.14645 3.85355L5.79289 7.5L2.14645 11.1464ZM8.14645 11.1464C7.95118 11.3417 7.95118 11.6583 8.14645 11.8536C8.34171 12.0488 8.65829 12.0488 8.85355 11.8536L12.8536 7.85355C13.0488 7.65829 13.0488 7.34171 12.8536 7.14645L8.85355 3.14645C8.65829 2.95118 8.34171 2.95118 8.14645 3.14645C7.95118 3.34171 7.95118 3.65829 8.14645 3.85355L11.7929 7.5L8.14645 11.1464Z"></path> </g></svg>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
                 </div>
-            </section>
+  
+                <!-- pagination -->
+                <nav class="flex justify-center my-4">
+                    <ul class="flex items-center -space-x-px h-10 text-base">
+                        {% if videos.has_previous %}
+                        <li>
+                            <a href="?page=1&stored={{ stored_days }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
+                                <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.85355 3.85355C7.04882 3.65829 7.04882 3.34171 6.85355 3.14645C6.65829 2.95118 6.34171 2.95118 6.14645 3.14645L2.14645 7.14645C1.95118 7.34171 1.95118 7.65829 2.14645 7.85355L6.14645 11.8536C6.34171 12.0488 6.65829 12.0488 6.85355 11.8536C7.04882 11.6583 7.04882 11.3417 6.85355 11.1464L3.20711 7.5L6.85355 3.85355ZM12.8536 3.85355C13.0488 3.65829 13.0488 3.34171 12.8536 3.14645C12.6583 2.95118 12.3417 2.95118 12.1464 3.14645L8.14645 7.14645C7.95118 7.34171 7.95118 7.65829 8.14645 7.85355L12.1464 11.8536C12.3417 12.0488 12.6583 12.0488 12.8536 11.8536C13.0488 11.6583 13.0488 11.3417 12.8536 11.1464L9.20711 7.5L12.8536 3.85355Z"></path> </g></svg>
+                                <span class="ml-1">First</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page={{ videos.previous_page_number }}&stored={{ stored_days }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                </svg>
+                                <span class="ml-1">Previous</span>
+                            </a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">{{ videos.number }}</span>
+                        </li>
+                        <li>
+                            <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">of</span>
+                        </li>
+                        <li>
+                            <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">{{ videos.paginator.num_pages }}</span>
+                        </li>
+    
+                        {% if videos.has_next %}
+                            <li>
+                                <a href="?page={{ videos.next_page_number }}&stored={{ stored_days }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="mr-1">Next</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="?page={{ videos.paginator.num_pages }}&stored={{ stored_days }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white group">
+                                    <span class="mr-1">Last</span>
+                                    <svg class="w-4 h-4 fill-gray-500 group-hover:fill-gray-800" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2.14645 11.1464C1.95118 11.3417 1.95118 11.6583 2.14645 11.8536C2.34171 12.0488 2.65829 12.0488 2.85355 11.8536L6.85355 7.85355C7.04882 7.65829 7.04882 7.34171 6.85355 7.14645L2.85355 3.14645C2.65829 2.95118 2.34171 2.95118 2.14645 3.14645C1.95118 3.34171 1.95118 3.65829 2.14645 3.85355L5.79289 7.5L2.14645 11.1464ZM8.14645 11.1464C7.95118 11.3417 7.95118 11.6583 8.14645 11.8536C8.34171 12.0488 8.65829 12.0488 8.85355 11.8536L12.8536 7.85355C13.0488 7.65829 13.0488 7.34171 12.8536 7.14645L8.85355 3.14645C8.65829 2.95118 8.34171 2.95118 8.14645 3.14645C7.95118 3.34171 7.95118 3.65829 8.14645 3.85355L11.7929 7.5L8.14645 11.1464Z"></path> </g></svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </section>
     </main>
     <script src="{% static 'Baby_app/js/pusher-notification.js' %}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script>
+        // set the modal menu element
+        const $targetEl = document.getElementById('default-modal');
+
+        // options with default values
+        const options = {
+            backdrop: 'static',
+            backdropClasses:
+                'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+            closable: true
+        };
+        const modal = new Modal($targetEl, options);
+        function show_modal(){
+            modal.show();
+            var vid_title = document.querySelector('#video-title');
+            var vid_ele = document.querySelector('#my-video');
+            var clickedElement = event.currentTarget; 
+            vid_title.textContent = clickedElement.querySelector('div').children[0].textContent;
+            vid_ele.children[0].src = clickedElement.getAttribute('data-video-src');
+            vid_ele.load();
+        };
+    </script>
 </body>
 </html>

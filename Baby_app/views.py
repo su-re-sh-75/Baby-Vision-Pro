@@ -48,7 +48,6 @@ def get_initial_data(request):
     if initial_data_result[1].records[0].get_field() == 'temperature':
         for record in initial_data_result[1].records:
             data['initial_temp_data'].append({'x':record.get_time().astimezone().strftime('%Y-%m-%d %H:%M:%S'), 'y':round(record.get_value(), 2)})
-
     return JsonResponse(data)
 
 def get_min_max_last_data(request):
@@ -99,7 +98,7 @@ def get_notification_data(request):
 def dashboard(request):
     context = {}
     query = 'from(bucket: "BVP")\
-            |> range(start: -5m)\
+            |> range(start: -1d)\
             |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
             |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")\
             |> mean()'
@@ -141,6 +140,7 @@ def view_notifications(request):
 
     days_ago = datetime.now() - timedelta(days=int(received_days))
     notifications_list = notifications_list.filter(received_at__gte=days_ago)
+    notifications_list = notifications_list.order_by('-received_at')
 
     if high_filter != "":
         notifications_list = notifications_list.filter(priority_level='High')
@@ -167,41 +167,13 @@ def view_notifications(request):
     return render(request, 'Baby_app/notification.html', context)
 
 def videos(request):
+    stored_days = request.GET.get('stored', '30')
 
-    def videos(request):
-        video_path = '/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos'
-        videos = []
-        context = {}
-        for filename in os.listdir(video_path):
-            if filename.endswith('.mp4') or filename.endswith('.avi'):
-                video = {}
-                video['path'] = os.path.join(video_path, filename)
-                video['name'] = filename
-                video['thumbnail'] = os.path.join(video_path, f"{os.path.splitext(filename)[0]}.jpg")
-
-                if not os.path.exists(video['thumbnail']):
-                    # Extract thumbnail
-                    cap = cv2.VideoCapture(video['path'])
-                    success, frame = cap.read()
-                    if success:
-                        cv2.imwrite(video['thumbnail'], frame)
-                    cap.release()
-                # Get file creation time
-                creation_time = os.path.getctime(video['path'])
-                # Get file modification time
-                modification_time = os.path.getmtime(video['path'])
-                video['creation_time'] = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d %H:%M:%S')
-                video['modification_time'] = datetime.fromtimestamp(modification_time).strftime('%Y-%m-%d %H:%M:%S')
-                videos.append(video)
-
-        
-
-        return render(request, 'Baby_app/videos.html', context)
     video_path = '/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos'
     videos = []
     context = {}
     for filename in os.listdir(video_path):
-        if filename.endswith('.mp4') or filename.endswith('.avi'):
+        if filename.endswith('.mp4'):
             video = {}
             video['path'] = os.path.join(video_path, filename)
             video['name'] = filename
@@ -216,16 +188,16 @@ def videos(request):
                 cap.release()
             # Get file creation time
             creation_time = os.path.getctime(video['path'])
-            # Get file modification time
-            modification_time = os.path.getmtime(video['path'])
-            video['creation_time'] = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d %H:%M:%S')
-            video['modification_time'] = datetime.fromtimestamp(modification_time).strftime('%Y-%m-%d %H:%M:%S')
+            video['creation_time'] = timezone.localtime(timezone.make_aware(datetime.fromtimestamp(creation_time))).strftime('%d %B %Y, %H:%M:%S')
+            video['thumbnail'] = video['thumbnail'].removeprefix('/mnt/Suresh/Codes/Baby/Baby_app/static/')
+            video['path'] = video['path'].removeprefix('/mnt/Suresh/Codes/Baby/Baby_app/static/')
             videos.append(video)
-    print(videos)
+    
+    videos.sort(key=lambda x: x['creation_time'], reverse=True)
+    videos = [video for video in videos if (datetime.now() - datetime.strptime(video['creation_time'], '%d %B %Y, %H:%M:%S')).days <= int(stored_days)]
     paginator = Paginator(videos, 10) 
-
     page_number = request.GET.get('page')
     videos = paginator.get_page(page_number)
     context['videos'] = videos
-    print(context['videos'])
+    context['stored_days'] = stored_days
     return render(request, 'Baby_app/videos.html', context)

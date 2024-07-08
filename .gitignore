@@ -4,3 +4,4 @@ node_modules
 env
 **/__pycache__/
 celerybeat-schedule
+/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos
