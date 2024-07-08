@@ -39,8 +39,8 @@ def on_message(mqtt_client, userdata, msg):
     '''
 
     # initialize twilio client
-    # account_sid = baby_settings.TWILIO_ACCOUNT_SID
-    # auth_token = baby_settings.TWILIO_AUTH_TOKEN
+    # account_sid = settings.TWILIO_ACCOUNT_SID
+    # auth_token = settings.TWILIO_AUTH_TOKEN
     # client = Client(account_sid, auth_token)
 
     pusher_data = {} 
@@ -83,10 +83,10 @@ def on_message(mqtt_client, userdata, msg):
 
     # send sms with twilio
     # message = client.messages.create(
-    #     from_='+16504890117',
-    #     body= msg.payload.decode(),
-    #     to='+919342222369'
-    # )
+    #      from_='+16504890117',
+    #      body= msg.payload.decode(),
+    #      to='+919342222369'
+    #  )
     # print(message.sid)
 
 client = mqtt.Client()

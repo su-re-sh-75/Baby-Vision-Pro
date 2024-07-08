@@ -99,7 +99,7 @@ def get_notification_data(request):
 def dashboard(request):
     context = {}
     query = 'from(bucket: "BVP")\
-            |> range(start: -1d)\
+            |> range(start: -5m)\
             |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
             |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")\
             |> mean()'

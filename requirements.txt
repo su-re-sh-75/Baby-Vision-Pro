@@ -63,6 +63,8 @@ msgpack==1.0.8
 multidict==6.0.5
 mysqlclient==2.2.4
 ndg-httpsclient==0.5.1
+numpy==2.0.0
+opencv-python==4.10.0.84
 packaging==24.0
 paho-mqtt==2.1.0
 prompt_toolkit==3.0.47
