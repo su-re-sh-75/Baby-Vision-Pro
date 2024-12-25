@@ -12,7 +12,7 @@ pusher_client = pusher.Pusher(
 )
 bucket = "BVP"
 org = "BVP"
-token = "xEEu4SJEKXcSRXsTiQngcTPFG0TCzCr2LDWmxN887D9RFhRSRk7UqJsQMIaAObZpLKQXle23QtK_RY0k0sDNew=="
+token = ""
 url = "http://localhost:8086"
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
@@ -23,7 +23,7 @@ def send_sensor_data_stats():
     Sends mean, min, max values of Temperature, Humidity from InfluxDB
     '''
     base_query = 'from(bucket: "BVP")\
-            |> range(start: -1d)\
+            |> range(start: -5m)\
             |> filter(fn: (r) => r["_measurement"] == "sensor-data")\
             |> filter(fn: (r) => r["_field"] == "temperature" or r["_field"] == "humidity")'
     query_api = client.query_api()

@@ -1,9 +1,9 @@
 import pusher
 
-app_id = "1824386"
-key = "a5728f3261909ddf0eba"
-secret = "d9673b39c593cecc21f8"
-cluster = "ap2"
+app_id = "<pusher-app-id>"
+key = "<pusher-key>"
+secret = "<pusher-secret>"
+cluster = "<cluster-id>"
 
 pusher_client = pusher.Pusher(
         app_id=app_id,

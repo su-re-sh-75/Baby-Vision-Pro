@@ -17,7 +17,7 @@ import cv2
 
 bucket = "BVP"
 org = "BVP"
-token = "xEEu4SJEKXcSRXsTiQngcTPFG0TCzCr2LDWmxN887D9RFhRSRk7UqJsQMIaAObZpLKQXle23QtK_RY0k0sDNew=="
+token = ""
 url = "http://localhost:8086"
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
@@ -89,8 +89,8 @@ def get_notification_data(request):
         'series_arr':[]
     }
     last_day = timezone.now() - timedelta(days=1)
-    for i in ['Low', 'Medium', 'High']:
-        data['series_arr'].append(Notification.objects.filter(priority_level=i, received_at__gte=last_day).count())
+    for level in ['Low', 'Medium', 'High']:
+        data['series_arr'].append(Notification.objects.filter(priority_level=level, received_at__gte=last_day).count())
     return JsonResponse(data)
     
 
@@ -116,7 +116,7 @@ def dashboard(request):
     return render(request, 'Baby_app/dashboard.html', context=context)
 
 def livestream(request):
-    url = f'http://192.168.41.81:5000/video_feed'
+    url = f'http://192.168.43.153:9000/video'
     try:
         response = requests.head(url, timeout=5)
         print(response)
@@ -167,7 +167,7 @@ def view_notifications(request):
     return render(request, 'Baby_app/notification.html', context)
 
 def videos(request):
-    stored_days = request.GET.get('stored', '30')
+    stored_days = request.GET.get('stored', '100')
 
     video_path = '/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos'
     videos = []

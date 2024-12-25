@@ -161,22 +161,22 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # emqx mqtt conf
-MQTT_SERVER = 'p1d3f813.ala.asia-southeast1.emqxsl.com'
+MQTT_SERVER = ''
 MQTT_PORT = 8883
 MQTT_KEEPALIVE = 60
 MQTT_USER = 'suresh'
 MQTT_PASSWORD = 'suresh'
 
 # twilio sms conf
-TWILIO_PHONE = "+16504890117"
-TWILIO_ACCOUNT_SID = "AC55c70a5b42bba0fb6588ed0a3ae27435"
-TWILIO_AUTH_TOKEN = "91a6711ef8c37add8ed4c02b5e47f7f3"
+TWILIO_PHONE = ""
+TWILIO_ACCOUNT_SID = ""
+TWILIO_AUTH_TOKEN = ""
 
 # pusher channels conf
-APP_ID = "1824386"
-APP_KEY = "a5728f3261909ddf0eba"
-APP_SECRET = "d9673b39c593cecc21f8"
-APP_CLUSTER = "ap2"
+APP_ID = ""
+APP_KEY = ""
+APP_SECRET = ""
+APP_CLUSTER = ""
 
 # celery conf
 CELERY_BROKER_URL = 'redis://localhost:6379/0'

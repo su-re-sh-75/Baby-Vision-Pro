@@ -1,12 +1,10 @@
-# python 3.8
-
 import random
 import time
 
 from paho.mqtt import client as mqtt_client
 
 
-host = 'p1d3f813.ala.asia-southeast1.emqxsl.com'
+host = '<pusher-broker-url>'
 port = 8883
 topic = ["BVP/baby", "BVP/urine", "BVP/cry"]
 # topic = ["BVP/baby"]

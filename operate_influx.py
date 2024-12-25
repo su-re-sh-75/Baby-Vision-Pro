@@ -7,7 +7,7 @@ import time
 
 bucket = "BVP"
 org = "BVP"
-token = "xEEu4SJEKXcSRXsTiQngcTPFG0TCzCr2LDWmxN887D9RFhRSRk7UqJsQMIaAObZpLKQXle23QtK_RY0k0sDNew=="
+token = "<influxdb-token>"
 url = "http://localhost:8086"
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
@@ -15,14 +15,15 @@ client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 def influx_write():
     # Write script
     write_api = client.write_api(write_options=SYNCHRONOUS)
-
-    for i in range(1, 51):
+    i = 0
+    while True:
         temperature = random.uniform(20, 30)  # Generate random temperature between 20 and 30
         humidity = random.uniform(40, 60)  # Generate random humidity between 40 and 60
 
         point = influxdb_client.Point("sensor-data").tag("device", "sensor").field("temperature", temperature).field("humidity", humidity)
         write_api.write(bucket=bucket, org=org, record=point)
         print(i, "Written", temperature, humidity)
+        i += 1
         time.sleep(2)  
 
 def influx_read():

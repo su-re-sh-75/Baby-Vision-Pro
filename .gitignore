@@ -1,7 +1,7 @@
 node_modules
-.vscode/settings.json
 /static/
 env
 **/__pycache__/
 celerybeat-schedule
-/mnt/Suresh/Codes/Baby/Baby_app/static/Baby_app/videos
+**/*.mp4
+**/*.jpg

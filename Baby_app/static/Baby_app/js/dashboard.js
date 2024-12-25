@@ -27,15 +27,15 @@ var area_options = {
 		stacked: true,
 		animations: {
 			enabled: true,
-			easing: 'easein',
-			speed: 800,
+			easing: 'easeinout',
+			speed: 100,
 			animateGradually: {
 				enabled: true,
-				delay: 150
+				delay: 100
 			},
 			dynamicAnimation: {
 				enabled: true,
-				speed: 400
+				speed: 100
 			}
 		}
 	},

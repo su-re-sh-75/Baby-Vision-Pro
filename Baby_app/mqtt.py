@@ -10,8 +10,8 @@ import pusher
 
 # initializations of beams = Push notifications and Pusher client = channels
 beams_client = PushNotifications(
-    instance_id='624dc809-45e5-4a7e-bd92-f36425957490',
-    secret_key='B07C522814BA8E777A18F322896A24E863A388686EDC039A1871B0EBD5819FAC',
+    instance_id='',
+    secret_key='',
 )
 
 pusher_client = pusher.Pusher(

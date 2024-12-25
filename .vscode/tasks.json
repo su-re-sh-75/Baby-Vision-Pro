@@ -34,8 +34,28 @@
             }
         },
         {
+            "label": "Publish sensor data",
+            "type": "shell",
+            "command": "python3 operate_influx.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
             "label": "Start all processes",
-            "dependsOn": ["Run server", "Celery worker", "Celery beat"]
+            "dependsOn": [
+                "Run server",
+                "Celery worker",
+                "Celery beat",
+                "Publish sensor data"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
-   ]
+    ]
 }
